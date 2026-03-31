@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serviços | Give Software</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <script src="lang.js"></script>
+  <style>
+    /* ── LANG TOGGLE ── */
+    .lang-toggle {
+      display: flex; align-items: center; gap: 6px;
+      font-family: monospace; font-size: 0.75rem; color: var(--text-muted);
+      border: 1px solid var(--border); border-radius: 100px;
+      padding: 6px 14px; transition: all 0.3s;
+      cursor: pointer; letter-spacing: 0.08em;
+    }
+    .lang-toggle:hover { border-color: var(--accent); color: #fff; }
+    .lang-toggle .lt-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .lt-sep { opacity: 0.3; }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    :root {
+      --bg: #0c0c0d;
+      --bg-2: #141416;
+      --bg-card: #161618;
+      --accent: #2ec4a5;
+      --accent-glow: rgba(46,196,165,0.22);
+      --accent-dim: rgba(46,196,165,0.08);
+      --text: #edfaf6;
+      --text-muted: #5a7d72;
+      --border: rgba(46,196,165,0.14);
+      --border-accent: rgba(46,196,165,0.32);
+      --radius: 16px;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Grain Overlay */
+    body::after {
+      content: ""; position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none; z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.1; margin-bottom: 1rem; }
+
+    /* Custom Cursor */
+    #cursor-dot {
+      position: fixed; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); pointer-events: none; z-index: 99999;
+      transform: translate(-50%,-50%); mix-blend-mode: difference;
+      transition: transform .1s ease, opacity .2s;
+    }
+    #cursor-ring {
+      position: fixed; width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid rgba(46,196,165,.5); pointer-events: none; z-index: 99998;
+      transform: translate(-50%,-50%); transition: all .18s cubic-bezier(.16,1,.3,1);
+    }
+    a:hover ~ #cursor-ring, button:hover ~ #cursor-ring, .interactive:hover ~ #cursor-ring { transform: translate(-50%,-50%) scale(1.8); }
+
+    /* Nav Scrollspy */
+    nav { 
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.1rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      background: rgba(6,14,12,0); border-bottom: 1px solid transparent;
+      transition: all .4s;
+    }
+    nav.scrolled { background: rgba(6,14,12,0.9); border-bottom-color: var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a { font-size: .88rem; color: var(--text-muted); letter-spacing: .04em; text-transform: uppercase; text-decoration: none; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-cta { font-family: var(--font-body); font-size: .88rem; font-weight: 500; padding: .65rem 1.5rem; background: var(--accent); color: #fff; border: none; border-radius: 8px; cursor: none; box-shadow: 0 0 22px var(--accent-glow); transition: all .3s; }
+    .nav-cta:hover { box-shadow: 0 0 38px rgba(46,196,165,.5); transform: translateY(-1px); }
+    
+    .logo-poly { transform-origin: 50px 42px; }
+    .logo-poly-1 { animation: assembleL 0.7s .1s cubic-bezier(.16,1,.3,1) both; }
+    .logo-poly-2 { animation: assembleR 0.7s .2s cubic-bezier(.16,1,.3,1) both; }
+    .logo-poly-center { animation: assembleC 0.8s .3s cubic-bezier(.16,1,.3,1) both; }
+    @keyframes assembleL { from { opacity:0; transform: translateX(-20px) scale(.7); } to { opacity:1; transform: none; } }
+    @keyframes assembleR { from { opacity:0; transform: translateX(20px) scale(.7); } to { opacity:1; transform: none; } }
+    @keyframes assembleC { from { opacity:0; transform: translateY(-20px) scale(.7); } to { opacity:1; transform: none; } }
+
+    /* Global Utils */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .section { padding: 8rem 2rem; max-width: 1200px; margin: 0 auto; position: relative; }
+    .section-header { text-align: center; margin-bottom: 5rem; }
+    .section-title { font-size: clamp(2.5rem, 5vw, 4rem); }
+    .pre-title { font-family: monospace; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: inline-block; text-shadow: 0 0 10px var(--accent-glow); }
+    .glow-text { background: linear-gradient(100deg, #fff 10%, #2ec4a5 60%, #3ddbb8 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+
+    /* ── PROJECT HERO (SPOTLIGHT) ── */
+    .p-hero {
+      position: relative; height: 90vh; display: flex; align-items: flex-end; padding: 6rem 4rem; overflow: hidden;
+      background: radial-gradient(circle at 50% 50%, #111a18 0%, var(--bg) 75%);
+    }
+    .p-hero-bg {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      opacity: 0.4; transform: scale(1.05); transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .p-hero:hover .p-hero-bg { transform: scale(1); }
+    .p-hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8) contrast(1.2); }
+    
+    .p-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, var(--bg) 10%, transparent 60%); z-index: 2; pointer-events: none; }
+    
+    .p-hero-content { position: relative; z-index: 5; max-width: 800px; }
+    .p-hero-tag { display: inline-flex; align-items: center; gap: 8px; font-family: monospace; font-size: 0.75rem; color: var(--accent); border: 1px solid var(--border-accent); padding: 4px 12px; border-radius: 4px; background: rgba(46,196,165,0.1); margin-bottom: 2rem; }
+    .p-hero-title { font-size: clamp(3rem, 7vw, 6rem); letter-spacing: -0.04em; margin-bottom: 1.5rem; }
+    .p-hero-desc { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px; }
+    
+    .p-hero-metrics { display: flex; gap: 4rem; margin-top: 3rem; border-left: 2px solid var(--accent); padding-left: 2rem; }
+    .p-metric { display: flex; flex-direction: column; gap: 4px; }
+    .p-metric-val { font-family: var(--font-display); font-size: 2.5rem; color: #fff; }
+    .p-metric-lbl { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ── METHODOLOGY JOURNEY ── */
+    .method-section { padding-bottom: 20rem; }
+    .method-step {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: center; margin-bottom: 12rem; position: relative;
+    }
+    .method-step:nth-child(even) { direction: rtl; }
+    .method-step:nth-child(even) > * { direction: ltr; }
+    
+    .ms-visual { position: relative; aspect-ratio: 1; background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; overflow: hidden; }
+    .ms-visual-glow { position: absolute; inset: 0; background: radial-gradient(circle at var(--x) var(--y), var(--accent-glow) 0%, transparent 60%); pointer-events: none; }
+    
+    .ms-num { font-family: monospace; font-size: 1rem; color: var(--accent); margin-bottom: 1rem; display: block; }
+    .ms-title { font-size: 3.5rem; margin-bottom: 1.5rem; }
+    .ms-desc { color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; max-width: 500px; }
+
+    /* ── TECH DNA MARQUEE ── */
+    .dna-wrap { width: 100vw; margin-left: calc(-50vw + 50%); overflow: hidden; padding: 4rem 0; background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .dna-track { display: flex; gap: 4rem; animation: marquee 40s linear infinite; }
+    .dna-item { display: flex; align-items: center; gap: 15px; font-family: var(--font-display); font-weight: 800; font-size: 2.5rem; color: var(--text-muted); opacity: 0.3; transition: opacity 0.3s; white-space: nowrap; }
+    .dna-item:hover { opacity: 1; color: var(--accent); }
+    .dna-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent-glow); }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ── SOLUTION ARCHITECT FUNNEL ── */
+    /* ── SOLUTION ARCHITECT FUNNEL (PREMIUM REDESIGN) ── */
+    .funnel-section { 
+        background: radial-gradient(circle at 50% 30%, rgba(46,196,165,0.08) 0%, var(--bg) 70%); 
+        border-radius: 40px; padding: 6rem 4rem; border: 1px solid var(--border); margin-top: 5rem; 
+        position: relative; overflow: hidden;
+    }
+    .funnel-header { text-align: center; margin-bottom: 5rem; position: relative; z-index: 2; }
+    .funnel-header p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 1.5rem auto 0; }
+    
+    .funnel-steps { display: flex; justify-content: center; align-items: center; gap: 0; margin-bottom: 5rem; position: relative; z-index: 2; }
+    .fs-dot { 
+        width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--border); 
+        display: flex; align-items: center; justify-content: center; font-family: var(--font-display); 
+        font-weight: 800; font-size: 1rem; color: var(--text-muted); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        background: var(--bg); position: relative;
+    }
+    .fs-line { width: 80px; height: 1px; background: var(--border); transition: all 0.5s; }
+    .fs-dot.active { 
+        border-color: var(--accent); color: #fff; background: var(--accent-dim); 
+        box-shadow: 0 0 30px var(--accent-glow), inset 0 0 10px var(--accent-glow);
+        transform: scale(1.1);
+    }
+    .fs-line.active { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+    
+    .funnel-container { min-height: 400px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; }
+    .q-step { text-align: center; animation: funnelFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; display: none; width: 100%; }
+    .q-step.active { display: block; }
+    @keyframes funnelFadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .q-title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 4rem; color: #fff; letter-spacing: -0.02em; }
+    .q-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; width: 100%; max-width: 1000px; margin: 0 auto; }
+    
+    .q-opt { 
+        padding: 3rem 2rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border); 
+        border-radius: 24px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+        display: flex; flex-direction: column; align-items: center; gap: 20px;
+        backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        position: relative; overflow: hidden;
+    }
+    .q-opt::before {
+        content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent, rgba(46,196,165,0.05), transparent);
+        opacity: 0; transition: opacity 0.4s;
+    }
+    .q-opt:hover { 
+        border-color: var(--accent); background: rgba(46,196,165,0.05); transform: translateY(-10px); 
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px var(--accent-dim);
+    }
+    .q-opt:hover::before { opacity: 1; }
+    .q-opt span { font-size: 3rem; margin-bottom: 10px; display: block; transition: transform 0.4s; }
+    .q-opt:hover span { transform: scale(1.1) rotate(5deg); }
+    .q-opt strong { font-family: var(--font-display); font-size: 1.15rem; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; display: block; }
+    
+    .q-opt.selected { 
+        border-color: var(--accent); border-width: 2px; background: var(--accent-dim);
+        box-shadow: 0 0 40px var(--accent-glow);
+    }
+
+    #result-box {
+        padding: 3rem; background: rgba(255,255,255,0.02); border: 1px solid var(--accent); 
+        border-radius: 24px; max-width: 700px; margin: 0 auto; text-align: left;
+        backdrop-filter: blur(10px); box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        animation: resultGlow 2s ease-in-out infinite alternate;
+    }
+    @keyframes resultGlow { from { box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 20px rgba(46,196,165,0.1); } to { box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(46,196,165,0.3); } }
+    
+    .q-back-btn { 
+        margin-top: 2rem; background: transparent; border: none; color: var(--text-muted); 
+        font-family: monospace; font-size: 0.8rem; cursor: pointer; transition: color 0.3s;
+        text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .q-back-btn:hover { color: var(--accent); }
+
+    /* HUD Overlay */
+    .hud-overlay {
+        position: fixed; inset: 0; z-index: 10000; background: rgba(6,14,12,0.9); backdrop-filter: blur(20px); display: none; padding: 6rem;
+    }
+    .hud-box { max-width: 1000px; margin: 0 auto; border: 1px solid var(--accent); border-radius: 24px; padding: 4rem; position: relative; background: var(--bg-card); overflow: hidden; }
+
+    .hud-close { position: absolute; top: 30px; right: 30px; font-family: monospace; color: var(--accent); font-size: 1.5rem; transition: all 0.3s; }
+    .hud-close:hover { scale: 1.2; text-shadow: 0 0 10px var(--accent); }
+
+    /* ── MOBILE MENU & RESPONSIVENESS ── */
+    .mobile-menu-btn span { width: 24px; height: 2px; background: #fff; transition: 0.3s; }
+    
+    .mobile-menu-overlay {
+      position: fixed; inset: 0; background: rgba(6,14,12,0.98); backdrop-filter: blur(20px);
+      z-index: 100000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-menu-overlay.active { transform: translateY(0); }
+    .mobile-menu-close { position: absolute; top: 30px; right: 30px; font-size: 3rem; color: #fff; cursor: pointer; line-height: 1; }
+    .mobile-nav-links { list-style: none; text-align: center; display: flex; flex-direction: column; gap: 2rem; padding: 0; }
+    .mobile-nav-links a { font-family: var(--font-display); font-size: 2rem; color: var(--text-muted); text-decoration: none; transition: 0.3s; }
+    .mobile-nav-links a.active, .mobile-nav-links a:hover { color: #fff; text-shadow: 0 0 15px var(--accent-glow); }
+
+    .hud-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 4rem 2rem; text-align: center; color: var(--text-muted); }
+    .footer-wordmark { position: relative; display: inline-block; overflow: hidden; font-family: var(--font-display); font-size: 1.5rem; color: #fff; margin-bottom: 0px; margin-left:12px;}
+    .footer-wordmark::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent); transition: left 0.5s ease; }
+    .footer-wordmark:hover::after { left: 150%; }
+
+    /* ── SOLUTION ARCHITECT — REDESIGN ── */
+    .sa-section { padding-bottom: 6rem; }
+    .sa-wrap {
+      max-width: 860px; margin: 3rem auto 0;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 3.5rem 3rem;
+      min-height: 320px; position: relative;
+    }
+
+    /* Views */
+    .sa-view { display: none; animation: saFadeIn .45s cubic-bezier(.16,1,.3,1) both; }
+    .sa-view.active { display: block; }
+    @keyframes saFadeIn { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform: none; } }
+
+    /* Landing */
+    .sa-landing-inner { text-align: center; padding: 2rem 0; }
+    .sa-landing-sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 2.5rem; }
+    .sa-start-btn {
+      padding: 1rem 2.8rem; font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+      background: var(--accent); color: #fff; border: none; border-radius: 10px; cursor: pointer;
+      box-shadow: 0 0 28px var(--accent-glow); transition: all .3s;
+      letter-spacing: .03em;
+    }
+    .sa-start-btn:hover { transform: translateY(-2px); box-shadow: 0 0 48px rgba(46,196,165,.6); }
+
+    /* Progress */
+    .sa-progress-wrap { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2.8rem; }
+    .sa-progress-track { flex: 1; height: 3px; background: rgba(46,196,165,.12); border-radius: 4px; overflow: hidden; }
+    .sa-progress-fill { height: 100%; background: var(--accent); border-radius: 4px; width: 0%; transition: width .5s cubic-bezier(.16,1,.3,1); box-shadow: 0 0 10px var(--accent-glow); }
+    .sa-progress-label { font-family: monospace; font-size: .73rem; color: var(--text-muted); letter-spacing: .1em; white-space: nowrap; }
+
+    /* Question */
+    .sa-question-header { margin-bottom: 2.4rem; }
+    .sa-q-title { font-size: clamp(1.4rem, 3vw, 2rem); color: #fff; margin-bottom: .6rem; }
+    .sa-q-sub { color: var(--text-muted); font-size: .95rem; }
+
+    /* Options Grid */
+    .sa-options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .sa-options-grid--2col { grid-template-columns: 1fr 1fr; }
+    .sa-options-grid--3col { grid-template-columns: repeat(3, 1fr); }
+    .sa-option {
+      padding: 1.4rem 1.5rem; border: 1px solid var(--border); border-radius: 14px;
+      cursor: pointer; transition: all .3s cubic-bezier(.16,1,.3,1);
+      display: flex; flex-direction: column; gap: .45rem;
+      background: rgba(255,255,255,.02);
+    }
+    .sa-option:hover { border-color: var(--border-accent); background: var(--accent-dim); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(46,196,165,.1); }
+    .sa-option.selected { border-color: var(--accent); background: rgba(46,196,165,.1); box-shadow: 0 0 20px var(--accent-glow); }
+    .sa-opt-title { font-family: var(--font-display); font-size: .95rem; color: #fff; }
+    .sa-opt-desc { font-size: .82rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* Back Button */
+    .sa-back-btn {
+      background: transparent; border: none; color: var(--text-muted); font-family: var(--font-body);
+      font-size: .85rem; cursor: pointer; padding: .3rem 0; transition: color .2s;
+      letter-spacing: .03em;
+    }
+    .sa-back-btn:hover { color: #fff; }
+
+    /* Result */
+    .sa-result-header { margin-bottom: 2.5rem; }
+    .sa-result-label { font-family: monospace; font-size: .72rem; letter-spacing: .15em; color: var(--accent); text-transform: uppercase; margin-bottom: .8rem; display: flex; align-items: center; gap: 8px; }
+    .sa-result-label::before { content:''; display:inline-block; width:18px; height:1px; background:var(--accent); }
+    .sa-result-type { font-size: clamp(1.6rem, 3.5vw, 2.4rem); color: #fff; line-height: 1.15; }
+    .sa-result-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2.5rem; margin-bottom: 2.5rem; }
+    .sa-result-block { display: flex; flex-direction: column; gap: .5rem; }
+    .sa-result-block-label { font-family: monospace; font-size: .7rem; letter-spacing: .12em; color: var(--accent); text-transform: uppercase; }
+    .sa-result-block p { color: var(--text-muted); font-size: .9rem; line-height: 1.6; }
+    .sa-tech-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .sa-tag { font-family: monospace; font-size: .72rem; color: var(--accent); border: 1px solid rgba(46,196,165,.25); border-radius: 5px; padding: 3px 10px; background: var(--accent-dim); letter-spacing: .05em; }
+
+    /* Result CTA */
+    .sa-result-cta { padding-top: 2rem; border-top: 1px solid var(--border); }
+    .sa-result-cta-note { color: var(--text-muted); font-size: .9rem; max-width: 560px; margin-bottom: 1.5rem; line-height: 1.6; }
+    .sa-result-cta-btns { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .sa-restart-btn {
+      background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+      font-family: var(--font-body); font-size: .9rem; padding: .7rem 1.6rem;
+      border-radius: 8px; cursor: pointer; transition: all .3s;
+    }
+    .sa-restart-btn:hover { border-color: var(--accent); color: #fff; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      /* Nav */
+      .nav-links, .nav-cta { display: none; }
+      nav { padding: 1rem 1.5rem; }
+
+      /* Hero */
+      .p-hero { padding: 6rem 1.5rem; height: auto; min-height: 80vh; }
+      .p-hero-title { font-size: clamp(2.5rem, 10vw, 4rem); }
+      .p-hero-metrics { flex-direction: column; gap: 1.5rem; border-left: none; padding-left: 0; border-top: 2px solid var(--accent); padding-top: 2rem; }
+      
+      /* Methodology */
+      .method-step { grid-template-columns: 1fr; gap: 3rem; margin-bottom: 6rem; }
+      .method-step:nth-child(even) { direction: ltr; }
+      .ms-title { font-size: 2.5rem; }
+      
+      /* Funnel */
+      .q-options { grid-template-columns: 1fr; }
+      .funnel-section { padding: 4rem 1.5rem; }
+      .q-title { font-size: 2rem; }
+      .dna-track { animation-duration: 20s; }
+      
+      /* HUD Overlay */
+      .hud-overlay { padding: 2rem 1rem; overflow-y: auto; }
+      .hud-box { padding: 2rem 1.5rem; }
+      .hud-specs { grid-template-columns: 1fr; gap: 1rem; }
+      .hud-close { top: 15px; right: 15px; }
+      .hud-m-title { font-size: 2.5rem !important; margin-bottom: 1rem !important; }
+      .hud-m-desc { font-size: 1rem !important; margin-bottom: 2rem !important; }
+    }
+
+    /* ── #19 FULL-PAGE SCROLL PROGRESS ──────────────── */
+    #page-progress {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), #3ddbb8);
+      width: 0%; z-index: 10000; pointer-events: none;
+      box-shadow: 0 0 8px var(--accent-glow);
+      transition: width .05s linear;
+    }
+    /* ── START PROJECT MODAL ── */
+    #sp-modal {
+      position: fixed; inset: 0; z-index: 99999;
+      background: rgba(8, 10, 12, 0); overflow: hidden;
+      display: none; align-items: center; justify-content: center;
+      transition: background 0.7s cubic-bezier(0.8, 0, 0.2, 1);
+    }
+    #sp-modal.active { display: flex; }
+    #sp-modal.anim-bg { background: rgba(8, 10, 12, 0.96); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); }
+    
+    .sp-clip-layer {
+      position: absolute; width: 100vw; height: 100vh;
+      background: radial-gradient(circle at center, #101418 0%, #06080a 100%);
+      clip-path: circle(0% at var(--cx, 50%) var(--cy, 50%));
+      transition: clip-path 0.9s cubic-bezier(0.8, 0, 0.2, 1);
+      z-index: 1; display: flex; align-items: center; justify-content: center;
+    }
+    #sp-modal.anim-bg .sp-clip-layer { clip-path: circle(150% at var(--cx, 50%) var(--cy, 50%)); }
+    
+    .sp-bg-grid {
+      position: absolute; inset: 0; opacity: 0.15;
+      background-size: 60px 60px;
+      background-image: linear-gradient(to right, rgba(46,196,165,.2) 1px, transparent 1px), linear-gradient(to bottom, rgba(46,196,165,.2) 1px, transparent 1px);
+      z-index: 0;
+      animation: gridFloat 30s linear infinite;
+    }
+    @keyframes gridFloat { from { background-position: 0 0; } to { background-position: -60px 60px; } }
+    
+    .sp-close {
+      position: fixed; top: 40px; right: 40px; color: var(--text-muted);
+      font-family: monospace; font-size: 0.8rem; cursor: pointer; z-index: 10;
+      padding: 10px; border: 1px solid transparent; transition: all 0.3s;
+    }
+    .sp-close:hover { color: #fff; border-color: var(--border-accent); }
+    
+    .sp-progress {
+      position: fixed; top: 0; left: 0; height: 3px; background: var(--accent);
+      z-index: 10; width: 0%; transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+    
+    .sp-content {
+      position: relative; z-index: 10; width: 100%; max-width: 900px;
+      padding: 2rem; color: #fff; text-align: left;
+    }
+    
+    .sp-step { display: none; opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .sp-step.active { display: block; }
+    .sp-step.fade-in { opacity: 1; transform: translateY(0); }
+    
+    .sp-label { font-family: monospace; font-size: 0.8rem; color: var(--accent); margin-bottom: 2rem; letter-spacing: 0.15em; text-transform: uppercase; }
+    .sp-h2 { font-size: clamp(2rem, 5vw, 4rem); font-family: var(--font-display); line-height: 1.1; margin-bottom: 3rem; }
+    
+    .sp-input-wrap { position: relative; margin-bottom: 2rem; }
+    .sp-input { 
+      width: 100%; background: transparent; border: none; font-size: clamp(1.5rem, 3vw, 2.5rem);
+      color: #fff; font-family: var(--font-body); padding: 10px 0; outline: none;
+    }
+    .sp-input::placeholder { color: rgba(255,255,255,0.15); }
+    .sp-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: rgba(255,255,255,0.1); }
+    .sp-line::after { content: ''; position: absolute; bottom: 0; left: 0; height: 2px; background: var(--accent); width: 0%; transition: width 0.4s; box-shadow: 0 0 10px var(--accent); }
+    .sp-input:focus ~ .sp-line::after { width: 100%; }
+    
+    .sp-hint { font-family: monospace; font-size: 0.8rem; color: var(--text-muted); opacity: 0.6; }
+    .sp-hint strong { color: var(--accent); }
+    
+    .sp-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .sp-select-card {
+      padding: 2rem; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.02);
+      border-radius: 12px; font-family: var(--font-display); font-size: 1.2rem; cursor: pointer;
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .sp-select-card:hover { background: rgba(46,196,165,0.05); border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(46,196,165,0.1); }
+    
+    .sp-btn-submit {
+      padding: 1.2rem 3rem; font-family: monospace; font-size: 1rem; color: #000; background: var(--accent);
+      border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s;
+      box-shadow: 0 0 30px rgba(46,196,165,0.4); text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .sp-btn-submit:hover { transform: scale(1.05); box-shadow: 0 0 50px rgba(46,196,165,0.8); }
+
+    @media (max-width: 600px) {
+      .sp-cards { grid-template-columns: 1fr; gap: 1rem; }
+      .sp-select-card { padding: 1.8rem 1.5rem; font-size: 1.1rem; }
+      .sp-h2 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 2rem; }
+      .sp-content { padding: 1.5rem; }
+      .sp-close { top: 20px; right: 20px; }
+      .sp-label { margin-bottom: 1.2rem; }
+      .sp-hint { font-size: 0.75rem; text-align: center; margin-top: 1rem; }
+      .sp-hint strong { color: var(--accent); }
+      .sp-input { font-size: 1.5rem; padding-right: 60px; }
+      .sp-input-next { width: 50px; height: 50px; opacity: 1; pointer-events: auto; right: 0; }
+      
+      .sa-options-grid, .sa-options-grid--2col, .sa-options-grid--3col { grid-template-columns: 1fr; gap: 0.8rem; }
+      .sa-wrap { padding: 2rem 1.2rem; border-width: 0; background: transparent; }
+      .sa-option { padding: 1.2rem; }
+    }
+    
+    /* Launch Sequence */
+    #sp-success { text-align: center; }
+    .sp-launch-dot {
+      width: 12px; height: 12px; border-radius: 50%; background: #fff; margin: 0 auto 2rem;
+      box-shadow: 0 0 40px 20px rgba(46,196,165,0.8); opacity: 0;
+    }
+    .sp-msg { font-family: monospace; font-size: 1.2rem; color: var(--accent); letter-spacing: 0.1em; opacity: 0; }
+  </style>
+</head><body>
+<!-- Full page progress -->
+<div id="page-progress"></div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-logo" href="index.html">
+    <svg width="32" height="28" viewBox="0 0 100 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="logo-poly logo-poly-1" points="0,80 30,10 50,50" fill="#2d3d4f"/>
+      <polygon class="logo-poly logo-poly-2" points="100,80 70,10 50,50" fill="#2d3d4f"/>
+      <polygon class="logo-poly logo-poly-1" points="30,10 50,50 50,80" fill="#233040"/>
+      <polygon class="logo-poly logo-poly-2" points="70,10 50,50 50,80" fill="#233040"/>
+      <polygon class="logo-poly logo-poly-center" points="50,0 62,36 50,50 38,36" fill="#2ec4a5"/>
+      <polygon class="logo-poly logo-poly-center" points="50,50 60,68 50,80 40,68" fill="#1a9982"/>
+    </svg>
+    <span>GIVE <span style="color:var(--accent)">SOFTWARE</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-i18n="nav.home">Início</a></li>
+    <li><a href="projetos.html" data-i18n="nav.projects">Projetos</a></li>
+    <li><a href="servicos.html" class="active" data-i18n="nav.services">Serviços</a></li>
+    <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="lang-toggle" id="lang-toggle" data-lang="pt" onclick="toggleLang()">
+      <span class="lt-dot"></span>
+      <span class="lt-pt">PT</span>
+      <span class="lt-sep">|</span>
+      <span class="lt-en">EN</span>
+    </button>
+    <a class="nav-cta" href="sobre.html#cta" data-i18n="nav.cta" data-modal="start-project">Iniciar Projeto</a>
+    <div class="mobile-menu-btn" id="mobile-btn">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobile-menu">
+  <div class="mobile-menu-close" id="mobile-close">&times;</div>
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="projetos.html">Projetos</a></li>
+    <li><a href="servicos.html" class="active">Serviços</a></li>
+    <li><a href="sobre.html">Sobre nós</a></li>
+  </ul>
+  <a class="nav-cta" href="sobre.html#cta" style="margin-top:3rem;" data-i18n="nav.cta" data-modal="start-project">Iniciar Projeto</a>
+</div>
+
+<!-- Service Hero -->
+<section class="p-hero">
+    <div class="p-hero-bg">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2000" alt="Tech Infrastructure Design">
+    </div>
+    <div class="p-hero-overlay"></div>
+    
+    <div class="p-hero-content reveal">
+        <div class="p-hero-tag" data-i18n="serv.hero.tag">NOSSAS CAPACIDADES // 2026</div>
+        <h1 class="p-hero-title"><span data-i18n="serv.hero.h1a">Excelência em</span><br><span class="glow-text" data-i18n="serv.hero.h1b">Engenharia.</span></h1>
+        <p class="p-hero-desc" data-i18n="serv.hero.desc">Hub interativo de expertise. Explore nossas capacidades principais, de automações inteligentes a plataformas web de alta performance.</p>
+        
+        <div class="p-hero-metrics">
+            <div class="p-metric">
+                <span class="p-metric-val">50+</span>
+                <span class="p-metric-lbl" data-i18n="serv.m1.lbl">Projetos Entregues</span>
+            </div>
+            <div class="p-metric">
+                <span class="p-metric-val">100%</span>
+                <span class="p-metric-lbl" data-i18n="serv.m2.lbl">Qualidade de Código</span>
+            </div>
+            <div class="p-metric">
+                <span class="p-metric-val">24/7</span>
+                <span class="p-metric-lbl" data-i18n="serv.m3.lbl">Meta de Escalabilidade</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DNA Marquee -->
+<div class="dna-wrap">
+    <div class="dna-track">
+        <div class="dna-item">REACT <div class="dna-dot"></div></div>
+        <div class="dna-item">FLUTTER <div class="dna-dot"></div></div>
+        <div class="dna-item">NODE.JS <div class="dna-dot"></div></div>
+        <div class="dna-item">PYTHON <div class="dna-dot"></div></div>
+        <div class="dna-item">AWS <div class="dna-dot"></div></div>
+        <div class="dna-item">TENSORFLOW <div class="dna-dot"></div></div>
+        <div class="dna-item">TYPESCRIPT <div class="dna-dot"></div></div>
+        <div class="dna-item">DOCKER <div class="dna-dot"></div></div>
+        <!-- Repeat for seamless marquee -->
+        <div class="dna-item">REACT <div class="dna-dot"></div></div>
+        <div class="dna-item">FLUTTER <div class="dna-dot"></div></div>
+        <div class="dna-item">NODE.JS <div class="dna-dot"></div></div>
+        <div class="dna-item">PYTHON <div class="dna-dot"></div></div>
+        <div class="dna-item">AWS <div class="dna-dot"></div></div>
+        <div class="dna-item">TENSORFLOW <div class="dna-dot"></div></div>
+        <div class="dna-item">TYPESCRIPT <div class="dna-dot"></div></div>
+        <div class="dna-item">DOCKER <div class="dna-dot"></div></div>
+    </div>
+</div>
+
+<!-- Methodology Walkthrough -->
+<section class="section method-section">
+    <div class="section-header reveal">
+        <div class="pre-title" data-i18n="serv.method.pre">O que fazemos</div>
+        <h2 class="section-title" data-i18n="serv.method.title">Nossos Serviços</h2>
+    </div>
+
+    <!-- Step 1: Web -->
+    <div class="method-step reveal">
+        <div class="ms-content">
+            <span class="ms-num">01 // CORE</span>
+            <h3 class="ms-title">Desenvolvimento Web</h3>
+            <p class="ms-desc">Construímos plataformas web de alto desempenho, escaláveis e totalmente otimizadas para SEO. Focamos em arquiteturas modernas que garantem velocidade e segurança para o seu negócio.</p>
+        </div>
+        <div class="ms-visual interactive" onmousemove="glowEffect(event, this)">
+            <div class="ms-visual-glow"></div>
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200" alt="Web Development" style="width:100%;height:100%;object-fit:cover;opacity:0.6;">
+        </div>
+    </div>
+
+    <!-- Step 2: Mobile -->
+    <div class="method-step reveal">
+        <div class="ms-content">
+            <span class="ms-num">02 // NATIVE</span>
+            <h3 class="ms-title">Desenvolvimento Mobile</h3>
+            <p class="ms-desc">Criamos aplicativos nativos e híbridos para iOS e Android que oferecem experiências fluidas e intuitivas. Apps robustos construídos para performance extrema e engajamento total do usuário.</p>
+        </div>
+        <div class="ms-visual interactive" onmousemove="glowEffect(event, this)">
+            <div class="ms-visual-glow"></div>
+            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1200" alt="Mobile Development" style="width:100%;height:100%;object-fit:cover;opacity:0.6;">
+        </div>
+    </div>
+
+    <!-- Step 3: Automação -->
+    <div class="method-step reveal">
+        <div class="ms-content">
+            <span class="ms-num">03 // INTELLIGENCE</span>
+            <h3 class="ms-title">Automação</h3>
+            <p class="ms-desc">Eliminamos processos manuais repetitivos através de fluxos inteligentes e integração de IA. Transformamos fluxos complexos em operações automáticas e eficientes.</p>
+        </div>
+        <div class="ms-visual interactive" onmousemove="glowEffect(event, this)">
+            <div class="ms-visual-glow"></div>
+            <img src="assets/automation.png" alt="Automation Systems" style="width:100%;height:100%;object-fit:cover;opacity:1;">
+        </div>
+    </div>
+
+    <!-- Step 4: UX e UI Design -->
+    <div class="method-step reveal">
+        <div class="ms-content">
+            <span class="ms-num">04 // INTERFACE</span>
+            <h3 class="ms-title">UX e UI Design</h3>
+            <p class="ms-desc">Design centrado no usuário que combina estética premium com usabilidade impecável. Criamos interfaces que contam histórias e guiam o usuário de forma natural.</p>
+        </div>
+        <div class="ms-visual interactive" onmousemove="glowEffect(event, this)">
+            <div class="ms-visual-glow"></div>
+            <img src="assets/uxui.png" alt="UX/UI Design" style="width:100%;height:100%;object-fit:cover;opacity:1;">
+        </div>
+    </div>
+
+    <!-- Step 5: Ecommerce -->
+    <div class="method-step reveal">
+        <div class="ms-content">
+            <span class="ms-num">05 // COMMERCE</span>
+            <h3 class="ms-title">Ecommerce</h3>
+            <p class="ms-desc">Plataformas de vendas robustas focadas em conversão. Implementamos checkouts rápidos, gestão de inventário inteligente e integração completa de pagamentos.</p>
+        </div>
+        <div class="ms-visual interactive" onmousemove="glowEffect(event, this)">
+            <div class="ms-visual-glow"></div>
+            <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=1200" alt="Ecommerce Solutions" style="width:100%;height:100%;object-fit:cover;opacity:0.6;">
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Solution Architect — REDESIGN PREMIUM -->
+<section class="section sa-section" id="solution-architect">
+  <div class="section-header reveal">
+    <div class="pre-title">MONTE SEU PROJETO</div>
+    <h2 class="section-title">Arquitetura de soluções <span class="glow-text">sob medida</span></h2>
+    <p style="color:var(--text-muted);max-width:500px;margin:0 auto;">Entenda qual formato de produto, tecnologia e estratégia faz mais sentido para o seu cenário.</p>
+  </div>
+
+  <div class="sa-wrap reveal">
+
+    <!-- Landing View -->
+    <div class="sa-view active" id="sa-landing">
+      <div class="sa-landing-inner">
+        <p class="sa-landing-sub">Rápido, objetivo e personalizado.</p>
+        <button class="sa-start-btn interactive" id="sa-start-btn">Começar agora</button>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="sa-progress-wrap" id="sa-progress-wrap" style="display:none;">
+      <div class="sa-progress-track">
+        <div class="sa-progress-fill" id="sa-progress-fill"></div>
+      </div>
+      <span class="sa-progress-label" id="sa-progress-label">Pergunta 1 de 5</span>
+    </div>
+
+    <!-- Step 1: Objetivo -->
+    <div class="sa-view" id="sa-step-1">
+      <div class="sa-question-header">
+        <h3 class="sa-q-title">Qual é o principal objetivo do seu projeto?</h3>
+        <p class="sa-q-sub">Selecione a opção que melhor representa o resultado que você busca.</p>
+      </div>
+      <div class="sa-options-grid">
+        <div class="sa-option interactive" data-value="launch_fast">
+          <strong class="sa-opt-title">Lançar rápido</strong>
+          <span class="sa-opt-desc">Colocar uma ideia no mercado com agilidade.</span>
+        </div>
+        <div class="sa-option interactive" data-value="automate">
+          <strong class="sa-opt-title">Automatizar operações</strong>
+          <span class="sa-opt-desc">Reduzir tarefas manuais e ganhar eficiência.</span>
+        </div>
+        <div class="sa-option interactive" data-value="scale">
+          <strong class="sa-opt-title">Escalar um produto</strong>
+          <span class="sa-opt-desc">Preparar a solução para crescer com segurança.</span>
+        </div>
+        <div class="sa-option interactive" data-value="premium_experience">
+          <strong class="sa-opt-title">Elevar a experiência</strong>
+          <span class="sa-opt-desc">Criar uma jornada mais fluida, moderna e premium.</span>
+        </div>
+        <div class="sa-option interactive" data-value="increase_conversion">
+          <strong class="sa-opt-title">Aumentar conversão</strong>
+          <span class="sa-opt-desc">Transformar tecnologia em vendas e resultado.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Desafio -->
+    <div class="sa-view" id="sa-step-2">
+      <div class="sa-question-header">
+        <h3 class="sa-q-title">Qual desafio você quer resolver agora?</h3>
+        <p class="sa-q-sub">Isso nos ajuda a entender o contexto real do projeto.</p>
+      </div>
+      <div class="sa-options-grid">
+        <div class="sa-option interactive" data-value="validation">
+          <strong class="sa-opt-title">Validação inicial</strong>
+          <span class="sa-opt-desc">Ainda estou estruturando a ideia.</span>
+        </div>
+        <div class="sa-option interactive" data-value="manual_process">
+          <strong class="sa-opt-title">Processos manuais</strong>
+          <span class="sa-opt-desc">Minha operação depende muito de controles improvisados.</span>
+        </div>
+        <div class="sa-option interactive" data-value="limited_system">
+          <strong class="sa-opt-title">Sistema limitado</strong>
+          <span class="sa-opt-desc">A solução atual não acompanha o crescimento.</span>
+        </div>
+        <div class="sa-option interactive" data-value="lack_of_control">
+          <strong class="sa-opt-title">Falta de controle</strong>
+          <span class="sa-opt-desc">Preciso de mais visibilidade, organização e eficiência.</span>
+        </div>
+        <div class="sa-option interactive" data-value="modernization">
+          <strong class="sa-opt-title">Modernização</strong>
+          <span class="sa-opt-desc">Quero atualizar a operação com uma solução mais robusta.</span>
+        </div>
+      </div>
+      <button class="sa-back-btn" data-prev="1">← Voltar</button>
+    </div>
+
+    <!-- Step 3: Estágio -->
+    <div class="sa-view" id="sa-step-3">
+      <div class="sa-question-header">
+        <h3 class="sa-q-title">Em que estágio o projeto está?</h3>
+        <p class="sa-q-sub">Cada fase exige uma abordagem diferente de produto e tecnologia.</p>
+      </div>
+      <div class="sa-options-grid sa-options-grid--2col">
+        <div class="sa-option interactive" data-value="idea">
+          <strong class="sa-opt-title">Ideia em construção</strong>
+          <span class="sa-opt-desc">Ainda não saiu do papel.</span>
+        </div>
+        <div class="sa-option interactive" data-value="scope">
+          <strong class="sa-opt-title">Escopo ou protótipo</strong>
+          <span class="sa-opt-desc">Tenho um rascunho ou wireframe.</span>
+        </div>
+        <div class="sa-option interactive" data-value="existing_product">
+          <strong class="sa-opt-title">Produto em operação</strong>
+          <span class="sa-opt-desc">Já existe e está sendo usado.</span>
+        </div>
+        <div class="sa-option interactive" data-value="evolving_system">
+          <strong class="sa-opt-title">Sistema a ser evoluído</strong>
+          <span class="sa-opt-desc">Precisa de melhorias estruturais.</span>
+        </div>
+      </div>
+      <button class="sa-back-btn" data-prev="2">← Voltar</button>
+    </div>
+
+    <!-- Step 4: Prioridade -->
+    <div class="sa-view" id="sa-step-4">
+      <div class="sa-question-header">
+        <h3 class="sa-q-title">O que é mais importante para você neste momento?</h3>
+        <p class="sa-q-sub">Vamos priorizar a recomendação com base no que gera mais valor para você.</p>
+      </div>
+      <div class="sa-options-grid sa-options-grid--3col">
+        <div class="sa-option interactive" data-value="speed">
+          <strong class="sa-opt-title">Velocidade</strong>
+          <span class="sa-opt-desc">Entregar rápido.</span>
+        </div>
+        <div class="sa-option interactive" data-value="premium_ux">
+          <strong class="sa-opt-title">Experiência premium</strong>
+          <span class="sa-opt-desc">Produto que impressiona.</span>
+        </div>
+        <div class="sa-option interactive" data-value="scale_priority">
+          <strong class="sa-opt-title">Escala</strong>
+          <span class="sa-opt-desc">Crescer com estrutura.</span>
+        </div>
+        <div class="sa-option interactive" data-value="efficiency">
+          <strong class="sa-opt-title">Eficiência</strong>
+          <span class="sa-opt-desc">Fazer mais com menos.</span>
+        </div>
+        <div class="sa-option interactive" data-value="strategy">
+          <strong class="sa-opt-title">Direção estratégica</strong>
+          <span class="sa-opt-desc">Saber por onde começar.</span>
+        </div>
+      </div>
+      <button class="sa-back-btn" data-prev="3">← Voltar</button>
+    </div>
+
+    <!-- Step 5: Urgência -->
+    <div class="sa-view" id="sa-step-5">
+      <div class="sa-question-header">
+        <h3 class="sa-q-title">Qual é o seu timing ideal?</h3>
+        <p class="sa-q-sub">Entender o prazo esperado ajuda a definir o melhor caminho de execução.</p>
+      </div>
+      <div class="sa-options-grid sa-options-grid--2col">
+        <div class="sa-option interactive" data-value="immediate">
+          <strong class="sa-opt-title">Imediato</strong>
+          <span class="sa-opt-desc">Quero começar o quanto antes.</span>
+        </div>
+        <div class="sa-option interactive" data-value="weeks">
+          <strong class="sa-opt-title">Próximas semanas</strong>
+          <span class="sa-opt-desc">Em breve, mas ainda organizando.</span>
+        </div>
+        <div class="sa-option interactive" data-value="months">
+          <strong class="sa-opt-title">Próximos meses</strong>
+          <span class="sa-opt-desc">Tenho tempo para estruturar bem.</span>
+        </div>
+        <div class="sa-option interactive" data-value="planning">
+          <strong class="sa-opt-title">Ainda em planejamento</strong>
+          <span class="sa-opt-desc">Só estou explorando por agora.</span>
+        </div>
+      </div>
+      <button class="sa-back-btn" data-prev="4">← Voltar</button>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="sa-view" id="sa-result">
+      <div class="sa-result-header">
+        <div class="sa-result-label">DIAGNÓSTICO CONCLUÍDO</div>
+        <h3 class="sa-result-type" id="sa-result-type">MVP sob medida com base escalável</h3>
+      </div>
+      <div class="sa-result-body">
+        <div class="sa-result-block">
+          <span class="sa-result-block-label">Por quê</span>
+          <p id="sa-result-why"></p>
+        </div>
+        <div class="sa-result-block">
+          <span class="sa-result-block-label">Recomendação estratégica</span>
+          <p id="sa-result-rec"></p>
+        </div>
+        <div class="sa-result-block">
+          <span class="sa-result-block-label">Tecnologias sugeridas</span>
+          <div class="sa-tech-tags" id="sa-result-tech"></div>
+        </div>
+        <div class="sa-result-block">
+          <span class="sa-result-block-label">Modelo de execução</span>
+          <p id="sa-result-flow"></p>
+        </div>
+      </div>
+      <div class="sa-result-cta">
+        <p class="sa-result-cta-note">Pronto para dar o próximo passo? Nossa equipe pode transformar esse diagnóstico em um projeto real — com proposta, prazo e estratégia definidos em até 24h.</p>
+        <div class="sa-result-cta-btns">
+          <button class="btn btn-primary interactive" data-modal="start-project">Falar com especialista</button>
+          <button class="sa-restart-btn interactive" id="sa-restart-btn">Refazer diagnóstico</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HUD Detail Overlay -->
+<div class="hud-overlay" id="hud-overlay">
+    <div class="hud-box">
+        <button class="hud-close" id="hud-close">CLOSE [X]</button>
+        <div id="hud-content"></div>
+    </div>
+</div>
+
+  <!-- Final CTA  Mission Control -->
+  <!-- <section class="cta-section section" id="cta">
+    <div class="cta-rings">
+      <div class="cta-glow"></div>
+      <div class="cta-ring cta-ring-1"></div>
+      <div class="cta-ring cta-ring-2"></div>
+      <div class="cta-ring cta-ring-3"></div>
+    </div>
+
+    <div class="cta-inner">
+      <div class="cta-left reveal">
+        <div class="cta-status">
+          <div class="cta-status-dot"></div>
+          <span data-i18n="cta.status">Abertos para novos projetos &mdash; Q2 2026</span>
+        </div>
+        <h2 class="cta-h2">
+          <span data-i18n="cta.h2a">Pronto para construir</span><br>
+          <span class="cta-hl" data-i18n="cta.h2b">algo real?</span>
+        </h2>
+        <p class="sub-title" style="max-width:480px;margin:0;" data-i18n="cta.sub">
+          Compartilhe sua ideia. Retornamos com uma proposta técnica em até 24 horas. Sem enrolação.
+        </p>
+        <div class="cta-btns">
+          <a href="mailto:hello@givesoftware.com" class="btn btn-primary" style="font-size:1.05rem;padding:1rem 2.4rem;" data-i18n="cta.btn.start" data-modal="start-project">
+            Iniciar um Projeto &#8599;
+          </a>
+          <a href="mailto:hello@givesoftware.com?subject=Schedule+a+Call" class="btn-ghost-ring" data-i18n="cta.btn.call">
+            Agendar uma Conversa
+          </a>
+        </div>
+        <div class="cta-trust">
+          <div class="cta-trust-item">
+            <span class="cti-val">&lt;24h</span>
+            <span class="cti-lbl" data-i18n="cta.trust.t1">Tempo de resposta</span>
+          </div>
+          <div class="cta-trust-sep"></div>
+          <div class="cta-trust-item">
+            <span class="cti-val">1 semana</span>
+            <span class="cti-lbl" data-i18n="cta.trust.t2">Kickoff</span>
+          </div>
+          <div class="cta-trust-sep"></div>
+          <div class="cta-trust-item">
+            <span class="cti-val">NDA</span>
+            <span class="cti-lbl" data-i18n="cta.trust.t3">Disponível</span>
+          </div>
+          <div class="cta-trust-sep"></div>
+          <div class="cta-trust-item">
+            <span class="cti-val">100%</span>
+            <span class="cti-lbl" data-i18n="cta.trust.t4">No prazo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-card reveal delay-2">
+        <div class="cta-card-label" data-i18n="cta.card.label">O que acontece depois</div>
+        <div class="cta-steps">
+          <div class="cta-step">
+            <div class="cta-step-num">01</div>
+            <div>
+              <strong data-i18n="cta.step1.title">Você envia um brief</strong>
+              <p data-i18n="cta.step1.desc">Nos fale sua ideia, prazo e orçamento. Sem papelada.</p>
+            </div>
+          </div>
+          <div class="cta-step">
+            <div class="cta-step-num">02</div>
+            <div>
+              <strong data-i18n="cta.step2.title">Nós definimos o escopo</strong>
+              <p data-i18n="cta.step2.desc">Nossa equipe analisa e retorna uma proposta técnica detalhada em 24h.</p>
+            </div>
+          </div>
+          <div class="cta-step">
+            <div class="cta-step-num">03</div>
+            <div>
+              <strong data-i18n="cta.step3.title">Construímos e entregamos</strong>
+              <p data-i18n="cta.step3.desc">Entrega no prazo, total transparência, updates semanais, sem surpresas.</p>
+            </div>
+          </div>
+        </div>
+        <div class="cta-card-footer">
+          <div class="cta-status-dot"></div>
+          <span style="font-family:monospace;font-size:.74rem;color:var(--text-muted);">
+            GIVE.SYS // CAPACITY: <span style="color:var(--accent);">2 SLOTS OPEN</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+<!-- Footer -->
+<footer>
+  <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:.5rem;">
+    <svg width="36" height="30" viewBox="0 0 100 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,80 30,10 50,50" fill="#2d3d4f"/>
+      <polygon points="100,80 70,10 50,50" fill="#2d3d4f"/>
+      <polygon points="30,10 50,50 50,80" fill="#233040"/>
+      <polygon points="70,10 50,50 50,80" fill="#233040"/>
+      <polygon points="50,0 62,36 50,50 38,36" fill="#2ec4a5"/>
+      <polygon points="50,50 60,68 50,80 40,68" fill="#1a9982"/>
+    </svg>
+    <div class="footer-wordmark interactive" style="margin-bottom:0px;">GIVE <span style="color:var(--accent)">SOFTWARE</span></div>
+  </div>
+  <p data-i18n="footer.desc">Construímos todo tipo de solução. Web. Mobile. Automação. Tudo.</p>
+  <div style="margin: 2rem 0; display: flex; gap: 2rem; justify-content: center;">
+    <a href="#" class="interactive" style="color:var(--accent)">Twitter</a>
+    <a href="#" class="interactive" style="color:var(--accent)">LinkedIn</a>
+    <a href="#" class="interactive" style="color:var(--accent)">GitHub</a>
+  </div>
+  <p style="font-size: 0.85rem; font-family: monospace; color:var(--text-muted);" data-i18n="footer.copy">© 2026 Give Software. Construído com propósito.</p>
+</footer>
+
+  <!-- START PROJECT MODAL -->
+  <div class="sp-modal" id="sp-modal">
+    <!-- Decorative clip layer (background only) -->
+    <div class="sp-clip-layer" id="sp-clip">
+      <div class="sp-bg-grid"></div>
+    </div>
+    <!-- UI Controls -->
+    <div class="sp-close" id="sp-close" data-i18n="modal.close">[ ESC ] FECHAR</div>
+    <div class="sp-progress" id="sp-progress"></div>
+    <!-- Form Content -->
+    <div class="sp-content">
+        <!-- Step 1 -->
+        <div class="sp-step active" id="sp-step-1" data-step="1">
+          <div class="sp-label" data-i18n="modal.s1.label">01 // O CONCEITO</div>
+          <h2 class="sp-h2" data-i18n="modal.s1.title">O que vamos construir?</h2>
+          <div class="sp-input-wrap">
+            <input type="text" class="sp-input" id="sp-input-concept" placeholder="Um app fintech, um agente de IA, um SaaS..." data-i18n="modal.s1.ph" autocomplete="off">
+            <div class="sp-line"></div>
+            <button class="sp-input-next" id="sp-next-1" aria-label="Próximo">→</button>
+          </div>
+          <div class="sp-hint" data-i18n="modal.s1.hint">Pressione <strong>Enter ↵</strong> para continuar.</div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="sp-step" id="sp-step-2" data-step="2">
+          <div class="sp-label">02 // ECOSYSTEM</div>
+          <h2 class="sp-h2">Select your platform.</h2>
+          <div class="sp-cards">
+            <div class="sp-select-card">WEB PLATFORM</div>
+            <div class="sp-select-card">MOBILE APP</div>
+            <div class="sp-select-card">AI & AUTOMATION</div>
+            <div class="sp-select-card">FULL STACK (ALL)</div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="sp-step" id="sp-step-3" data-step="3">
+          <div class="sp-label" data-i18n="modal.s3.label">03 // PRAZO</div>
+          <h2 class="sp-h2" data-i18n="modal.s3.title">Quando lançamos?</h2>
+          <div class="sp-cards">
+            <div class="sp-select-card" data-i18n="modal.s3.opt1">O QUANTO ANTES</div>
+            <div class="sp-select-card" data-i18n="modal.s3.opt2">1-3 MESES</div>
+            <div class="sp-select-card" data-i18n="modal.s3.opt3">3-6 MESES</div>
+            <div class="sp-select-card" data-i18n="modal.s3.opt4">FLEXÍVEL</div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="sp-step" id="sp-step-4" data-step="4">
+          <div class="sp-label" data-i18n="modal.s4.label">04 // CONTATO</div>
+          <h2 class="sp-h2" data-i18n="modal.s4.title">Para onde enviamos a proposta?</h2>
+          <div class="sp-input-wrap" style="margin-bottom: 3rem;">
+            <input type="email" class="sp-input" id="sp-input-email" placeholder="email@empresa.com" data-i18n="modal.s4.ph" autocomplete="off">
+            <div class="sp-line"></div>
+          </div>
+          <button class="sp-btn-submit" id="sp-submit" data-i18n="modal.submit">INICIAR SEQUÊNCIA</button>
+        </div>
+
+        <!-- Success -->
+        <div class="sp-step" id="sp-success" data-step="5">
+          <div class="sp-launch-dot" id="sp-dot"></div>
+          <div class="sp-msg" id="sp-msg"></div>
+        </div>
+      </div>
+    </div>
+
+  <script>
+    /* ── SOLUTION ARCHITECT ENGINE ── */
+    (function(){
+      const TOTAL_STEPS = 5;
+      let state = { goal: null, challenge: null, stage: null, priority: null, urgency: null };
+
+      const views = {
+        landing: document.getElementById('sa-landing'),
+        steps: [null, ...Array.from({length: TOTAL_STEPS}, (_,i) => document.getElementById(`sa-step-${i+1}`))],
+        result: document.getElementById('sa-result')
+      };
+      const progressWrap  = document.getElementById('sa-progress-wrap');
+      const progressFill  = document.getElementById('sa-progress-fill');
+      const progressLabel = document.getElementById('sa-progress-label');
+      const stateKeys = [null, 'goal','challenge','stage','priority','urgency'];
+
+      function showView(id) {
+        document.querySelectorAll('.sa-view').forEach(v => { v.classList.remove('active'); });
+        const el = typeof id === 'string' ? document.getElementById(id) : id;
+        if(el) el.classList.add('active');
+      }
+
+      function updateProgress(step) {
+        const pct = Math.round(((step - 1) / TOTAL_STEPS) * 100);
+        progressFill.style.width = pct + '%';
+        progressLabel.textContent = step <= TOTAL_STEPS ? `Pergunta ${step} de ${TOTAL_STEPS}` : 'Concluído';
+      }
+
+      // Start
+      document.getElementById('sa-start-btn').addEventListener('click', () => {
+        progressWrap.style.display = 'flex';
+        updateProgress(1);
+        showView('sa-step-1');
+      });
+
+      // Option selection
+      document.querySelectorAll('.sa-option').forEach(opt => {
+        opt.addEventListener('click', function() {
+          const step = parseInt(this.closest('.sa-view').id.replace('sa-step-',''));
+          const key = stateKeys[step];
+          state[key] = this.dataset.value;
+          // visual feedback
+          this.closest('.sa-options-grid').querySelectorAll('.sa-option').forEach(o => o.classList.remove('selected'));
+          this.classList.add('selected');
+          setTimeout(() => {
+            if(step < TOTAL_STEPS) {
+              updateProgress(step + 1);
+              showView(`sa-step-${step + 1}`);
+            } else {
+              updateProgress(TOTAL_STEPS + 1);
+              progressLabel.textContent = 'Concluído';
+              showResult();
+            }
+          }, 280);
+        });
+      });
+
+      // Back buttons
+      document.querySelectorAll('.sa-back-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const prev = parseInt(this.dataset.prev);
+          updateProgress(prev);
+          showView(`sa-step-${prev}`);
+        });
+      });
+
+      // Restart
+      document.getElementById('sa-restart-btn').addEventListener('click', () => {
+        state = { goal: null, challenge: null, stage: null, priority: null, urgency: null };
+        document.querySelectorAll('.sa-option').forEach(o => o.classList.remove('selected'));
+        progressWrap.style.display = 'none';
+        showView('sa-landing');
+      });
+
+      // Recommendation Engine
+      const recommendations = {
+        discovery: {
+          type: 'Discovery Estratégico',
+          why: 'Seu perfil aponta que o projeto ainda está em fase de estruturação ou exploração. Antes de desenvolver qualquer solução, o ideal é entender com clareza o que precisa ser construído e por quê.',
+          rec: 'Conduzir uma etapa de descoberta estratégica: mapeamento de necessidades, definição de escopo e alinhamento de prioridades tecnológicas antes de qualquer linha de código.',
+          tech: ['Workshop de Discovery','Mapeamento de Jornada','Prototipação Rápida','Roadmap de Produto'],
+          flow: 'Briefing → Discovery → Validação de Hipóteses → Escopo Detalhado → Execução'
+        },
+        automation: {
+          type: 'Plataforma Operacional & Automação',
+          why: 'Seu cenário indica uma operação com alto esforço manual e potencial significativo de ganho via automação. A solução certa elimina retrabalho e libera o time para o que realmente importa.',
+          rec: 'Desenvolver uma plataforma interna personalizada que centraliza processos, automatiza etapas críticas e integra sistemas legados em um único fluxo inteligente.',
+          tech: ['Python','n8n / Zapier','Node.js','APIs REST','Banco de Dados SQL'],
+          flow: 'Mapeamento de Processos → Arquitetura → Automação → Integração → Deploy'
+        },
+        evolution: {
+          type: 'Evolução de Sistema & Arquitetura Escalável',
+          why: 'Você já possui um produto em operação que precisa crescer com segurança. É hora de revisar a arquitetura, melhorar a performance e preparar a base tecnológica para o próximo nível.',
+          rec: 'Reestruturação arquitetural progressiva, com otimização de performance, refatoração estratégica e implementação de uma base preparada para crescimento sustentável.',
+          tech: ['React / Next.js','Node.js / .NET','AWS / GCP','Redis','CI/CD Pipeline'],
+          flow: 'Auditoria Técnica → Roadmap de Evolução → Refatoração → Testes → Escala'
+        },
+        redesign: {
+          type: 'Redesign Estratégico & Elevação de Produto',
+          why: 'Seu foco é criar uma experiência que impressiona, converte e se destaca. Isso exige uma abordagem que une estética de alto nível, usabilidade impecável e lógica orientada a resultado.',
+          rec: 'Unir UX premium, interface refinada e melhoria de fluxo para elevar a percepção de valor, aumentar o engajamento e converter melhor em cada ponto de contato.',
+          tech: ['React / TypeScript','Framer Motion','Design System','Figma','SEO Técnico'],
+          flow: 'Pesquisa UX → Design System → Prototipação → Build → Validação com Usuários'
+        },
+        ecommerce: {
+          type: 'Plataforma de Vendas & E-commerce',
+          why: 'Seu objetivo é transformar tecnologia em resultado comercial direto. Isso exige uma plataforma construída com foco em conversão, experiência de compra e escala de operação.',
+          rec: 'Construir ou evoluir uma plataforma de vendas robusta, com checkout otimizado, gestão de inventário inteligente, SEO avançado e integração de meios de pagamento.',
+          tech: ['Shopify / WooCommerce','Next.js','APIs de Pagamento','SEO Advanced','Analytics'],
+          flow: 'Planejamento de Catálogo → Build → Otimização de Conversão → Go-Live → Escala'
+        },
+        mvp: {
+          type: 'MVP Web sob Medida com Base Escalável',
+          why: 'Seu perfil indica necessidade de validação com agilidade, sem abrir mão de uma estrutura preparada para evolução futura. O caminho certo é uma primeira versão enxuta e bem construída.',
+          rec: 'Começar com uma versão focada nas funcionalidades essenciais, priorizando tempo de lançamento reduzido e criando uma base sólida para as próximas etapas de produto.',
+          tech: ['React / Next.js','Node.js','PostgreSQL','Vercel / Railway','APIs Integradas'],
+          flow: 'Descoberta → Prototipação → Desenvolvimento → Deploy → Iteração'
+        }
+      };
+
+      function computeRecommendation() {
+        const { goal, challenge, stage, priority, urgency } = state;
+        if (urgency === 'planning' || challenge === 'validation') return 'discovery';
+        if (goal === 'automate' || challenge === 'manual_process') return 'automation';
+        if (goal === 'scale' && (stage === 'existing_product' || stage === 'evolving_system')) return 'evolution';
+        if (goal === 'increase_conversion' || priority === 'premium_ux' || goal === 'premium_experience') return 'redesign';
+        if (challenge === 'limited_system' && stage === 'existing_product') return 'evolution';
+        if (goal === 'launch_fast' && (stage === 'idea' || stage === 'scope')) return 'mvp';
+        return 'mvp';
+      }
+
+      function showResult() {
+        const key = computeRecommendation();
+        const rec = recommendations[key];
+        document.getElementById('sa-result-type').textContent = rec.type;
+        document.getElementById('sa-result-why').textContent = rec.why;
+        document.getElementById('sa-result-rec').textContent = rec.rec;
+        document.getElementById('sa-result-flow').textContent = rec.flow;
+        const techEl = document.getElementById('sa-result-tech');
+        techEl.innerHTML = rec.tech.map(t => `<span class="sa-tag">${t}</span>`).join('');
+        showView('sa-result');
+      }
+    })();
+
+    /* ── START PROJECT MODAL JS LOGIC ── */
+    (function(){
+
+      const modal = document.getElementById('sp-modal');
+      if(!modal) return;
+      const clip = document.getElementById('sp-clip');
+      const closeBtn = document.getElementById('sp-close');
+      const progress = document.getElementById('sp-progress');
+      const ctaBtns = document.querySelectorAll('[data-modal="start-project"]');
+      let currentStep = 1;
+
+      // Open Modal
+      ctaBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const rect = btn.getBoundingClientRect();
+          const cx = Math.round((rect.left + rect.width/2) / window.innerWidth * 100);
+          const cy = Math.round((rect.top + rect.height/2) / window.innerHeight * 100);
+          
+          clip.style.setProperty('--cx', cx + '%');
+          clip.style.setProperty('--cy', cy + '%');
+          
+          modal.classList.add('active');
+          
+          setTimeout(() => { modal.classList.add('anim-bg'); }, 50);
+          setTimeout(() => { goToStep(1); }, 600);
+        });
+      });
+
+      const nextBtn1 = document.getElementById('sp-next-1');
+      if(nextBtn1) {
+        nextBtn1.addEventListener('click', () => {
+          if(document.getElementById('sp-input-concept').value.trim() !== '') goToStep(2);
+        });
+      }
+
+      function close() {
+        modal.classList.remove('anim-bg');
+        setTimeout(() => { modal.classList.remove('active'); currentStep = 1; }, 800);
+      }
+      
+      closeBtn.addEventListener('click', close);
+      document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modal.classList.contains('active')) close(); });
+
+      // Step Navigation
+      function goToStep(num) {
+        const steps = document.querySelectorAll('.sp-step');
+        steps.forEach(s => { s.classList.remove('fade-in'); setTimeout(()=>s.classList.remove('active'), 300); });
+        setTimeout(() => {
+          const next = document.getElementById(num === 5 ? 'sp-success' : `sp-step-${num}`);
+          if(next) {
+            next.classList.add('active');
+            setTimeout(() => { next.classList.add('fade-in'); }, 50);
+            if(num === 1) document.getElementById('sp-input-concept').focus();
+            if(num === 4) document.getElementById('sp-input-email').focus();
+          }
+        }, 300);
+        progress.style.width = ((num-1)/4)*100 + '%';
+        currentStep = num;
+      }
+
+      // Enter Key
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' && modal.classList.contains('active')) {
+          if(currentStep === 1 && document.getElementById('sp-input-concept').value.trim() !== '') {
+            goToStep(2);
+          } else if (currentStep === 4 && document.getElementById('sp-input-email').value.trim() !== '') {
+            launchSequence();
+          }
+        }
+      });
+
+      // Card Selection
+      document.querySelectorAll('.sp-select-card').forEach(card => {
+        card.addEventListener('click', function() {
+          this.style.background = 'rgba(46,196,165,0.2)';
+          this.style.borderColor = 'var(--accent)';
+          setTimeout(() => { goToStep(currentStep + 1); }, 300);
+        });
+      });
+
+      // Submit Sequence
+      const submitBtn = document.getElementById('sp-submit');
+      if(submitBtn) submitBtn.addEventListener('click', launchSequence);
+
+      function launchSequence() {
+        goToStep(5);
+        progress.style.width = '100%';
+        const dot = document.getElementById('sp-dot');
+        const msg = document.getElementById('sp-msg');
+        
+        setTimeout(() => {
+          dot.style.opacity = '1';
+          dot.style.transition = 'transform 1s cubic-bezier(0.5, 0, 0.2, 1)';
+          dot.style.transform = 'translateY(-600px) scale(0.2)';
+        }, 800);
+
+        setTimeout(() => {
+          msg.style.opacity = '1';
+          typeWriter(msg, "[ STATUS: BRIEF SECURED. OUR ENGINEERS ARE ANALYZING. ]", 0);
+        }, 1800);
+
+        setTimeout(close, 5000);
+      }
+
+      function typeWriter(el, txt, i) {
+        if(i === 0) el.innerHTML = '';
+        if (i < txt.length) {
+          el.innerHTML += txt.charAt(i);
+          setTimeout(() => typeWriter(el, txt, i + 1), 40);
+        }
+      }
+    })();
+
+    /* Custom Cursor */
+    (function(){
+      const dot=document.getElementById('cursor-dot');
+      const ring=document.getElementById('cursor-ring');
+      let rx=0,ry=0;
+      window.addEventListener('mousemove',e=>{
+        dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px';
+        rx+=(e.clientX-rx)*.12; ry+=(e.clientY-ry)*.12;
+        ring.style.left=rx+'px'; ring.style.top=ry+'px';
+      });
+      function lerp(){
+        rx+=(parseFloat(dot.style.left||0)-rx)*.12;
+        ry+=(parseFloat(dot.style.top||0)-ry)*.12;
+        ring.style.left=rx+'px'; ring.style.top=ry+'px';
+        requestAnimationFrame(lerp);
+      }
+      lerp();
+    })();
+
+    /* Nav & Reveal & Scroll Progress */
+    (function(){
+      const nav=document.getElementById('main-nav');
+      const reveals=document.querySelectorAll('.reveal');
+      const pageProgress=document.getElementById('page-progress');
+
+      window.addEventListener('scroll',()=>{
+        nav.classList.toggle('scrolled',window.scrollY>60);
+        
+        // Scroll Progress
+        const s=document.documentElement;
+        const prog=s.scrollTop/(s.scrollHeight-s.clientHeight);
+        if(pageProgress) pageProgress.style.width=(prog*100)+'%';
+
+        const wh=window.innerHeight;
+        reveals.forEach(el=>{
+          const top=el.getBoundingClientRect().top;
+          if(top<wh-100) el.classList.add('active');
+        });
+      },{passive:true});
+      setTimeout(()=>window.dispatchEvent(new Event('scroll')),100);
+    })();
+
+    /* Canvas Matrix Background */
+    (function(){
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        let w, h;
+        const nodes = [];
+
+        function resize() {
+            w = window.innerWidth;
+            h = window.innerHeight;
+            canvas.width = w;
+            canvas.height = h;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        for(let i=0; i<30; i++) {
+            nodes.push({
+                x: Math.random()*w,
+                y: Math.random()*h,
+                vx: (Math.random()-0.5)*0.8,
+                vy: (Math.random()-0.5)*0.8,
+                s: Math.random()*2
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0,0,w,h);
+            ctx.strokeStyle = 'rgba(46,196,165,0.08)';
+            ctx.lineWidth = 1;
+            
+            nodes.forEach((n, i) => {
+                n.x += n.vx;
+                n.y += n.vy;
+                if(n.x<0 || n.x>w) n.vx*=-1;
+                if(n.y<0 || n.y>h) n.vy*=-1;
+
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.s, 0, Math.PI*2);
+                ctx.fillStyle = 'rgba(46,196,165,0.2)';
+                ctx.fill();
+
+                for(let j=i+1; j<nodes.length; j++) {
+                    const dx = n.x - nodes[j].x;
+                    const dy = n.y - nodes[j].y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if(dist < 200) {
+                        ctx.beginPath();
+                        ctx.moveTo(n.x, n.y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+    })();
+
+    /* Glow Effect Utility */
+    function glowEffect(e, el) {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        el.querySelector('.ms-visual-glow').style.setProperty('--x', `${x}px`);
+        el.querySelector('.ms-visual-glow').style.setProperty('--y', `${y}px`);
+    }
+
+    /* Solution Architect Funnel Logic */
+    let funnelData = { goal: '', industry: '', scale: '' };
+    function nextStep(current, val) {
+        if(current === 1) funnelData.goal = val;
+        if(current === 2) funnelData.industry = val;
+        
+        document.getElementById(`step-${current}`).classList.remove('active');
+        document.getElementById(`step-${current+1}`).classList.add('active');
+        document.getElementById(`dot-${current+1}`).classList.add('active');
+        document.getElementById(`line-${current}`).classList.add('active');
+    }
+
+    function prevStep(current) {
+        document.getElementById(`step-${current}`).classList.remove('active');
+        document.getElementById(`step-${current-1}`).classList.add('active');
+        document.getElementById(`dot-${current}`).classList.remove('active');
+        document.getElementById(`line-${current-1}`).classList.remove('active');
+    }
+
+    function finishFunnel(scale) {
+        funnelData.scale = scale;
+        document.getElementById('step-3').classList.remove('active');
+        document.getElementById('step-result').classList.add('active');
+        
+        const resultBox = document.getElementById('result-box');
+        resultBox.innerHTML = `
+            <div style="font-family:monospace;font-size:0.7rem;color:var(--accent);margin-bottom:1rem;">[ REPORT GENERATED ]</div>
+            <p style="margin-bottom:1rem;">Based on your goal of <strong>${funnelData.goal}</strong> for the <strong>${funnelData.industry}</strong> market (${funnelData.scale} level), we recommend:</p>
+            <ul style="list-style:none;color:var(--text-muted);font-size:0.9rem;">
+                <li style="margin-bottom:0.5rem;">🔹 <strong>Architecture:</strong> Cloud-Native Microservices</li>
+                <li style="margin-bottom:0.5rem;">🔹 <strong>Frontend:</strong> React + Three.js Immersive UI</li>
+                <li style="margin-bottom:0.5rem;">🔹 <strong>Infrastructure:</strong> AWS Elastic Beanstalk (Autoscaling)</li>
+                <li>🔹 <strong>Give Protocol:</strong> Tier-1 Security Audit + CI/CD</li>
+            </ul>
+        `;
+    }
+
+    /* HUD Details Trigger */
+    const hudOverlay = document.getElementById('hud-overlay');
+    const hudContent = document.getElementById('hud-content');
+    const nodes = document.querySelectorAll('.s-node');
+    
+    const serviceDetails = {
+        mobile: {
+            title: "MOBILE ENGINEERING [S-01]",
+            desc: "Native and Hybrid high-performance apps tailored for modern hardware.",
+            specs: ["Flutter / React Native", "Biometric Security", "Off-sync Data Logic", "Real-time Push Engine"]
+        },
+        web: {
+            title: "NEXT-GEN WEB [S-02]",
+            desc: "Immersive web platforms combining creative design with enterprise robustness.",
+            specs: ["React / Next.js", "WebGL / Three.js", "SSR & SEO Optimized", "Headless CMS Control"]
+        },
+        automation: {
+            title: "INTELLIGENT AUTOMATION [S-03]",
+            desc: "Eliminating manual overhead through cognitive workflows and AI agents.",
+            specs: ["n8n / Zapier Systems", "Custom AI Agents (LLM)", "Legacy API Bridge", "Data Poisoning Protection"]
+        },
+        ecommerce: {
+            title: "COMMERCE COMMAND [S-04]",
+            desc: "End-to-end shopping experiences built for conversion and massive peaks.",
+            specs: ["Inventory Sync v2", "Custom Checkout Flows", "Fraud Detection AI", "Multi-region Scale"]
+        }
+    };
+
+    nodes.forEach(node => {
+        node.addEventListener('click', () => {
+            const data = serviceDetails[node.dataset.service];
+            hudContent.innerHTML = `
+                <div class="pre-title">Service ID: ${node.dataset.service.toUpperCase()}</div>
+                <h2 style="font-size:3.5rem;margin-bottom:2rem;" class="hud-m-title">${data.title}</h2>
+                <p style="font-size:1.25rem;color:var(--text-muted);margin-bottom:3rem;max-width:700px;" class="hud-m-desc">${data.desc}</p>
+                <div class="hud-specs">
+                    ${data.specs.map(s => `
+                        <div style="padding:1.5rem;border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;gap:15px;color:#fff;">
+                            <div style="width:10px;height:10px;background:var(--accent);border-radius:50%;"></div>
+                            ${s}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            hudOverlay.style.display = 'block';
+        });
+    });
+
+    document.getElementById('hud-close').addEventListener('click', () => {
+        hudOverlay.style.display = 'none';
+    });
+
+</script>
+
+</body>
+</html>
