@@ -344,6 +344,26 @@
         <button class="sa-back-btn" data-prev="4">← Voltar</button>
       </div>
 
+      <!-- Step 6: Identificação -->
+      <div class="sa-view" id="sa-step-6">
+        <div class="sa-question-header">
+          <h3 class="sa-q-title">Quase lá! Para quem estamos gerando esse diagnóstico?</h3>
+          <p class="sa-q-sub">Essas informações nos ajudarão a preparar uma resposta personalizada para você.</p>
+        </div>
+        <div class="sa-form" style="display:flex; flex-direction:column; gap:2rem; max-width:400px; padding:2rem 0;">
+          <div style="display:flex; flex-direction:column; gap:0.5rem">
+             <label style="font-family:var(--font-display); font-size:0.85rem; color:var(--text-muted)">NOME OU EMPRESA *</label>
+             <input type="text" id="sa-input-name" class="sp-input" placeholder="Ex: Acme Inc." style="background:none; border:none; border-bottom:1px solid rgba(255,255,255,0.2); color:#fff; font-size:1.2rem; outline:none; padding-bottom:0.5rem;" autocomplete="off">
+          </div>
+          <div style="display:flex; flex-direction:column; gap:0.5rem">
+             <label style="font-family:var(--font-display); font-size:0.85rem; color:var(--text-muted)">EMAIL OU WHATSAPP *</label>
+             <input type="text" id="sa-input-contact" class="sp-input" placeholder="Ex: email@acme.com" style="background:none; border:none; border-bottom:1px solid rgba(255,255,255,0.2); color:#fff; font-size:1.2rem; outline:none; padding-bottom:0.5rem;" autocomplete="off">
+          </div>
+          <button id="sa-finish-info-btn" class="btn btn-primary" style="margin-top:1rem; width:100%">Ver Meu Diagnóstico</button>
+        </div>
+        <button class="sa-back-btn" data-prev="5">← Voltar</button>
+      </div>
+
       <!-- Result Screen -->
       <div class="sa-view" id="sa-result">
         <div class="sa-result-header">
@@ -372,7 +392,7 @@
           <p class="sa-result-cta-note">Pronto para dar o próximo passo? Nossa equipe pode transformar esse diagnóstico
             em um projeto real — com proposta, prazo e estratégia definidos em até 24h.</p>
           <div class="sa-result-cta-btns">
-            <button class="btn btn-primary interactive" data-modal="start-project" data-i18n="serv.sa.result.cta">Falar com especialista</button>
+            <a href="#" target="_blank" id="sa-email-btn" class="btn btn-primary interactive" style="text-decoration:none" data-i18n="serv.sa.result.cta">Falar com especialista</a>
             <button class="sa-restart-btn interactive" id="sa-restart-btn" data-i18n="serv.sa.result.restart">Refazer diagnóstico</button>
           </div>
         </div>
@@ -485,7 +505,7 @@
   <script>
     /* ── SOLUTION ARCHITECT ENGINE ── */
     (function () {
-      const TOTAL_STEPS = 5;
+      const TOTAL_STEPS = 6;
       const currentLang = localStorage.getItem('gs-lang') || 'pt';
       const saText = currentLang === 'en'
         ? { question: 'Question', done: 'Completed', of: 'of' }
@@ -502,6 +522,8 @@
             q4s: 'We prioritize the recommendation based on what generates more value.',
             q5t: 'What is your ideal timeline?',
             q5s: 'Expected timing helps define the best execution path.',
+            q6t: 'Nearly there! Who are we generating this for?',
+            q6s: 'This info helps us personalize your diagnosis.',
             back: '← Back',
             ctaNote: 'Ready for the next step? Our team can turn this diagnosis into a real project with proposal, timeline, and strategy within 24h.'
           }
@@ -516,10 +538,12 @@
             q4s: 'Vamos priorizar a recomendação com base no que gera mais valor para você.',
             q5t: 'Qual é o seu timing ideal?',
             q5s: 'Entender o prazo esperado ajuda a definir o melhor caminho de execução.',
+            q6t: 'Quase lá! Para quem estamos gerando esse diagnóstico?',
+            q6s: 'Essas informações nos ajudarão a preparar uma resposta personalizada para você.',
             back: '← Voltar',
             ctaNote: 'Pronto para dar o próximo passo? Nossa equipe pode transformar esse diagnóstico em um projeto real — com proposta, prazo e estratégia definidos em até 24h.'
           };
-      let state = { goal: null, challenge: null, stage: null, priority: null, urgency: null };
+      let state = { goal: null, challenge: null, stage: null, priority: null, urgency: null, name: '', contact: '' };
 
       const views = {
         landing: document.getElementById('sa-landing'),
@@ -539,11 +563,13 @@
       if (qTitles[2]) qTitles[2].textContent = saI18n.q3t;
       if (qTitles[3]) qTitles[3].textContent = saI18n.q4t;
       if (qTitles[4]) qTitles[4].textContent = saI18n.q5t;
+      if (qTitles[5]) qTitles[5].textContent = saI18n.q6t;
       if (qSubs[0]) qSubs[0].textContent = saI18n.q1s;
       if (qSubs[1]) qSubs[1].textContent = saI18n.q2s;
       if (qSubs[2]) qSubs[2].textContent = saI18n.q3s;
       if (qSubs[3]) qSubs[3].textContent = saI18n.q4s;
       if (qSubs[4]) qSubs[4].textContent = saI18n.q5s;
+      if (qSubs[5]) qSubs[5].textContent = saI18n.q6s;
       document.querySelectorAll('.sa-back-btn').forEach(btn => btn.textContent = saI18n.back);
       const saCtaNote = document.querySelector('.sa-result-cta-note');
       if (saCtaNote) saCtaNote.textContent = saI18n.ctaNote;
@@ -662,10 +688,40 @@
 
       // Restart
       document.getElementById('sa-restart-btn').addEventListener('click', () => {
-        state = { goal: null, challenge: null, stage: null, priority: null, urgency: null };
+        state = { goal: null, challenge: null, stage: null, priority: null, urgency: null, name: '', contact: '' };
+        document.getElementById('sa-input-name').value = '';
+        document.getElementById('sa-input-contact').value = '';
         document.querySelectorAll('.sa-option').forEach(o => o.classList.remove('selected'));
         progressWrap.style.display = 'none';
         showView('sa-landing');
+      });
+
+      // Step 6 Custom Submission
+      const submitInfoBtn = document.getElementById('sa-finish-info-btn');
+      if(submitInfoBtn) {
+        submitInfoBtn.addEventListener('click', () => {
+          const nameVal = document.getElementById('sa-input-name').value.trim();
+          const contactVal = document.getElementById('sa-input-contact').value.trim();
+          if(!nameVal || !contactVal) {
+            alert(currentLang === 'en' ? 'Please fill in both fields.' : 'Por favor, preencha os dois campos.');
+            return;
+          }
+          state.name = nameVal;
+          state.contact = contactVal;
+          updateProgress(TOTAL_STEPS + 1);
+          progressLabel.textContent = saText.done;
+          showResult();
+        });
+      }
+
+      // Handle Enter Key for step 6 inputs
+      document.querySelectorAll('#sa-input-name, #sa-input-contact').forEach(inp => {
+         inp.addEventListener('keydown', (e) => {
+            if(e.key === 'Enter') {
+              e.preventDefault();
+              document.getElementById('sa-finish-info-btn').click();
+            }
+         });
       });
 
       // Recommendation Engine
@@ -779,6 +835,23 @@
         document.getElementById('sa-result-flow').textContent = rec.flow;
         const techEl = document.getElementById('sa-result-tech');
         techEl.innerHTML = rec.tech.map(t => `<span class="sa-tag">${t}</span>`).join('');
+        
+        // Update CTA button with dynamic mailto link
+        const ctaBtn = document.getElementById('sa-email-btn');
+        if (ctaBtn) {
+          const type = rec.type;
+          const lang = localStorage.getItem('gs-lang') || 'pt';
+          
+          const emailAddresses = 'guilherme.bomfim@give.software,victor.menezes@give.software,admin@give.software';
+          const subject = lang === 'en' ? 'New Project Diagnosis - Give Software' : 'Novo Diagnóstico de Projeto - Give Software';
+          
+          let body = lang === 'en' 
+            ? `Hello Give Team,\n\nI just completed the solution diagnosis on the website and would like to speak with a specialist.\n\n👤 CLIENT INFO:\nName/Company: ${state.name}\nContact Info: ${state.contact}\n\n📋 MY PROFILE:\nMain goal: ${optionMap[state.goal][0]}\nBiggest challenge: ${optionMap[state.challenge][0]}\nCurrent stage: ${optionMap[state.stage][0]}\nPriority: ${optionMap[state.priority][0]}\nUrgency: ${optionMap[state.urgency][0]}\n\n💡 SYSTEM RESULT:\nSuggested architecture: ${rec.type}\nExecution model: ${rec.flow}\nTechnologies: ${rec.tech.join(', ')}\n\nLooking forward to hearing from you!`
+            : `Olá equipe Give,\n\nAcabei de realizar o diagnóstico de solução no site e gostaria de falar com um especialista.\n\n👤 INFORMAÇÕES DO CLIENTE:\nNome/Empresa: ${state.name}\nContato: ${state.contact}\n\n📋 MEU PERFIL:\nObjetivo principal: ${optionMap[state.goal][0]}\nMaior desafio: ${optionMap[state.challenge][0]}\nEstágio atual: ${optionMap[state.stage][0]}\nPrioridade: ${optionMap[state.priority][0]}\nUrgência: ${optionMap[state.urgency][0]}\n\n💡 RESULTADO DO SISTEMA:\nArquitetura sugerida: ${rec.type}\nModelo de execução: ${rec.flow}\nTecnologias: ${rec.tech.join(', ')}\n\nAguardo o contato!`;
+
+          ctaBtn.href = `mailto:${emailAddresses}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+        
         showView('sa-result');
       }
     })();

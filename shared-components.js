@@ -233,6 +233,27 @@ function initModalLogic() {
       setTimeout(close, 5000);
     });
   }
+
+  // Handle Enter key for inputs
+  const inputConcept = document.getElementById('sp-input-concept');
+  if (inputConcept) {
+    inputConcept.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && inputConcept.value.trim() !== '') {
+        e.preventDefault();
+        goToStep(2);
+      }
+    });
+  }
+
+  const inputEmail = document.getElementById('sp-input-email');
+  if (inputEmail) {
+    inputEmail.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && inputEmail.value.trim() !== '') {
+        e.preventDefault();
+        if (submitBtn) submitBtn.click();
+      }
+    });
+  }
 }
 
 function typeWriter(el, txt, i) {
@@ -245,7 +266,45 @@ function typeWriter(el, txt, i) {
 
 // Inicialização automática
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', injectSharedComponents);
+  document.addEventListener('DOMContentLoaded', () => { injectSharedComponents(); initCalendly(); });
 } else {
   injectSharedComponents();
+  initCalendly();
+}
+
+function initCalendly() {
+  // Inject Calendly CSS and JS
+  const style = document.createElement('link');
+  style.href = 'https://assets.calendly.com/assets/external/widget.css';
+  style.rel = 'stylesheet';
+  document.head.appendChild(style);
+
+  const script = document.createElement('script');
+  script.src = 'https://assets.calendly.com/assets/external/widget.js';
+  script.async = true;
+  document.head.appendChild(script);
+
+  // Override all "Agendar uma Conversa" links to open Calendly popup
+  const bindCalendly = () => {
+    document.querySelectorAll('[data-i18n="cta.btn.call"]').forEach(btn => {
+      // Remove any previously bound listeners by cloning
+      const newBtn = btn.cloneNode(true);
+      btn.replaceWith(newBtn);
+      
+      newBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (window.Calendly) {
+          Calendly.initPopupWidget({ 
+            url: 'https://calendly.com/gubombsg/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=2ec4a5' 
+          });
+        } else {
+          // Fallback if script hasn't loaded yet
+          window.open('https://calendly.com/gubombsg/30min', '_blank');
+        }
+      });
+    });
+  };
+
+  // Wait a bit to ensure all nodes are rendered
+  setTimeout(bindCalendly, 500);
 }
