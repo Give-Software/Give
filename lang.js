@@ -83,7 +83,7 @@
     .lt-pt, .lt-en {
       position: relative;
       z-index: 1;
-      font-family: 'DM Sans', monospace, sans-serif;
+      font-family: 'Plus Jakarta Sans', 'Space Mono', sans-serif;
       font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.1em;
@@ -96,6 +96,7 @@
     .lt-en { color: rgba(255,255,255,0.4); }
 
     .lang-toggle[data-lang="en"] .lt-pt { color: rgba(255,255,255,0.4); }
+    .lang-toggle[data-lang="en"] .lt-en { color: #fff; }
 
     /* Separator dot — hidden now (replaced by slider) */
     .lt-sep, .lt-dot { display: none; }
@@ -113,15 +114,9 @@
       }
       .mobile-menu-btn span { width: 24px; height: 2px; background: #fff; transition: 0.3s; }
       .mobile-menu-btn span:nth-child(2) { margin: 6px 0; }
-      .mobile-menu-overlay { z-index: 100000 !important; }
-    }
-    
-    /* Hide custom cursor on touch devices to prevent interaction blocking */
-    @media (hover: none) and (pointer: coarse) {
-      #cursor-dot, #cursor-ring { display: none !important; opacity: 0 !important; pointer-events: none !important; }
-      * { cursor: auto !important; }
     }
   `;
+
   document.head.insertBefore(style, document.head.firstChild);
 })();
 
@@ -133,6 +128,7 @@ const TRANSLATIONS = {
     'nav.services'    : 'Serviços',
     'nav.about'       : 'Sobre nós',
     'nav.cta'         : 'Iniciar Projeto',
+    'nav.mobileCta'   : 'Iniciar Projeto →',
 
     /* ── INDEX HERO ── */
     'hero.tag'        : 'GIVE SOFTWARE // 2026',
@@ -157,25 +153,39 @@ const TRANSLATIONS = {
     'process.s2.desc' : 'Nossa equipe define a stack ideal, a arquitetura e o roadmap de entrega antes de escrever uma linha de código.',
     'process.s3.title': 'Build & Entrega',
     'process.s3.desc' : 'Sprints semanais, total transparência. Você acompanha cada etapa em tempo real até o deploy final.',
+    'process.step1.title': 'Descoberta',
+    'process.step1.desc' : 'Entendendo o problema central.',
+    'process.step2.title': 'Estratégia',
+    'process.step2.desc' : 'Arquitetando a solução.',
+    'process.step3.title': 'Design',
+    'process.step3.desc' : 'Criando a experiência.',
+    'process.step4.title': 'Construção',
+    'process.step4.desc' : 'Engenharia do produto.',
+    'process.step5.title': 'Lançamento',
+    'process.step5.desc' : 'Deploy e escala.',
 
     /* ── SERVICES ── */
     'services.pre'    : 'O que entregamos',
     'services.title'  : 'Serviços',
-    'service.web.label'   : 'Web Platform',
+    'service.web.label'   : 'Plataforma Web',
     'service.web.title'   : 'Desenvolvimento Web',
     'service.web.desc'    : 'Plataformas web de alta performance, escaláveis e otimizadas para SEO — de landing pages a ERPs.',
-    'service.mobile.label': 'Mobile App',
+    'service.mobile.label': 'App Mobile',
     'service.mobile.title': 'Apps Mobile',
     'service.mobile.desc' : 'Apps nativos e híbridos para iOS/Android com UX fluida e performance de nível enterprise.',
-    'service.ai.label'    : 'AI & Automação',
+    'service.ai.label'    : 'IA & Automação',
     'service.ai.title'    : 'Inteligência Artificial',
     'service.ai.desc'     : 'Agentes inteligentes, automações de processos e integração de LLMs no seu fluxo operacional.',
-    'service.cloud.label' : 'Cloud Infra',
+    'service.cloud.label' : 'Infra Cloud',
     'service.cloud.title' : 'Infraestrutura Cloud',
     'service.cloud.desc'  : 'Arquiteturas cloud-native na AWS, GCP e Azure. Escalabilidade automática e uptime de 99,99%.',
-    'service.design.label': 'UX/UI Design',
+    'service.design.label': 'Design UX/UI',
     'service.design.title': 'Design de Produto',
     'service.design.desc' : 'Interfaces que combinam estética premium com usabilidade impecável. Do wireframe ao design system.',
+    'service.backend.title': 'API & Backend',
+    'service.backend.desc' : 'Microsserviços robustos e seguros em escala.',
+    'service.cloudops.title': 'Cloud & DevOps',
+    'service.cloudops.desc' : 'Infraestrutura AWS/GCP, pipelines CI/CD e serverless.',
 
     /* ── JOURNEY ── */
     'journey.pre'     : 'Nossa capacidade',
@@ -184,7 +194,7 @@ const TRANSLATIONS = {
     'journey.mobile.title': 'Experiências Mobile Nativas',
     'journey.mobile.desc' : 'Apps iOS e Android que rivalizam com os maiores produtos do mercado. Flutter & React Native.',
     'journey.ai.title'    : 'Automação & Agentes de IA',
-    'journey.ai.desc'     : 'Eliminate processos manuais. Treine agentes de IA no seu fluxo operacional existente.',
+    'journey.ai.desc'     : 'Elimine processos manuais. Treine agentes de IA no seu fluxo operacional existente.',
 
     /* ── ECOSYSTEM ── */
     'eco.pre'         : 'Integrações nativas',
@@ -256,17 +266,17 @@ const TRANSLATIONS = {
     'sobre.m3.lbl'     : 'Retenção de Clientes',
     'sobre.traj.pre'   : 'Nossa trajetória',
     'sobre.traj.title' : 'A Origem Give',
-    'sobre.mile1.year' : '2025 — The Beginning',
-    'sobre.mile1.title': '3 Developers. One Vision.',
+    'sobre.mile1.year' : '2025 — O Começo',
+    'sobre.mile1.title': '3 Desenvolvedores. Uma Visão.',
     'sobre.mile1.p'    : 'A Give nasceu da união de três amigos com habilidades complementares: Eduardo Pimentel (Automação), Victor Menezes (Mobile/UX) e Guilherme Bomfim (Web/Backend). O que começou como parceria evoluiu para a missão de criar soluções que realmente impactam pessoas.',
-    'sobre.mile2.year' : 'Abril 2025 — The Creation',
-    'sobre.mile2.title': 'From Projects to a Software House',
+    'sobre.mile2.year' : 'Abril 2025 — A Criação',
+    'sobre.mile2.title': 'De Projetos para Software House',
     'sobre.mile2.p'    : 'Com o crescimento das demandas, nasce a Give Software House. Nosso propósito: transformar conhecimento técnico em soluções personalizadas, resolvendo problemas reais de pessoas e empresas.',
-    'sobre.mile3.year' : 'Novembro 2025 — First Major Delivery',
+    'sobre.mile3.year' : 'Novembro 2025 — Primeira Grande Entrega',
     'sobre.mile3.title': 'E-commerce Parafina Bronze',
     'sobre.mile3.p'    : 'Entregamos nosso primeiro grande projeto: o e-commerce premium da Parafina Bronze. Lançado estrategicamente na Black Friday, consolidou nossa expertise em performance e experiência do usuário.',
     'sobre.mile4.year' : '2026 — Agora',
-    'sobre.mile4.title': 'Building the Future',
+    'sobre.mile4.title': 'Construindo o Futuro',
     'sobre.mile4.p'    : 'Evoluímos para uma software house focada em inovação. Atuamos em sistemas personalizados, apps, automações e plataformas escaláveis. Nosso foco é gerar resultado e eficiência.',
     'sobre.why.pre'    : 'Por que a Give?',
     'sobre.why.title'  : 'O Protocolo Give',
@@ -278,10 +288,11 @@ const TRANSLATIONS = {
 
     /* ── PROJETOS ── */
     'proj.hero.tag'    : 'MAIS RECENTE // Q1 2026',
-    'proj.hero.desc'   : 'Escalando uma plataforma bancária descentralizada para 2M de usuários com latência ultra-baixa e protocolos de segurança bancária.',
-    'proj.m1.lbl'      : 'Uptime Alcançado',
-    'proj.m2.lbl'      : 'Tempo Médio de Resposta',
-    'proj.m3.lbl'      : 'Retenção de Usuários',
+    'proj.hero.title'  : 'Automação de mensagens.',
+    'proj.hero.desc'   : 'Criação de um sistema de automação de mensagens para empresas com foco em marketing e vendas.',
+    'proj.m1.lbl'      : 'Redução de tempo',
+    'proj.m2.lbl'      : 'Tempo Médio de Envio',
+    'proj.m3.lbl'      : 'Aumento de usuários alcançados',
     'proj.port.pre'    : 'O Portfólio',
     'proj.port.title'  : 'Trabalhos\nSelecionados.',
     'proj.filter.all'  : 'Todos',
@@ -289,12 +300,36 @@ const TRANSLATIONS = {
     'proj.filter.apps' : 'Aplicativos',
     'proj.filter.auto' : 'Automação',
     'proj.filter.ai'   : 'Sistemas IA',
-    'proj.filter.ecommerce': 'Ecommerce',
+    'proj.filter.ecommerce': 'E-commerce',
     'proj.p1.exc'      : 'Interface de trading de alta frequência com sistemas de feedback líquido em tempo real.',
     'proj.p2.exc'      : 'Experiência de compra de nova geração com visualização de produto em AR.',
     'proj.p3.exc'      : 'Plataforma de diagnósticos preditivos usando arquiteturas LLM proprietárias.',
     'proj.p4.exc'      : 'Gerenciamento automatizado de infraestrutura para redes de energia em grande escala.',
     'proj.p5.exc'      : 'Digitalização completa do pilar de análise, reduzindo tempo de preenchimento em 67%.',
+    'proj.card1.title'   : 'Parafina Bronze',
+    'proj.card1.excerpt' : 'Transformação completa de e-commerce: do amador ao luxo com foco em conversão e SEO.',
+    'proj.card1.quote'   : 'O salto de visibilidade no Google e a nova experiência de compra mudaram nosso patamar de faturamento.',
+    'proj.card1.author'  : 'Equipe Parafina',
+    'proj.card1.role'    : 'Fundadora',
+    'proj.card2.title'   : 'Automation Message',
+    'proj.card2.excerpt' : 'Sistema inteligente de automação de mensagens com integração de LLMs para escala massiva.',
+    'proj.card2.quote'   : 'Saímos de um processo 100% manual para uma escala de quase 3 mil mensagens por dia sem intervenção humana.',
+    'proj.card2.author'  : 'Operações',
+    'proj.card2.role'    : 'Gestor de Growth',
+    'proj.card3.title'   : 'Móveis Florença',
+    'proj.card3.quote'   : 'O novo sistema eliminou o papel e trouxe uma agilidade absurda. Agora conseguimos fechar 3x mais vendas no mesmo tempo.',
+    'proj.card3.author'  : 'Time Florença',
+    'proj.card3.role'    : 'Pilar de Análise',
+    'proj.card4.title'   : 'Academ.ia',
+    'proj.card4.excerpt' : 'Revolução fitness com treinos 100% personalizados por inteligência artificial e análise de movimento em tempo real.',
+    'proj.card4.quote'   : 'O Academ.ia transformou a forma como nossos alunos treinam, garantindo resultados 3x mais rápidos e seguros.',
+    'proj.card4.author'  : 'Time Academ.ia',
+    'proj.card4.role'    : 'Fundadores',
+    'proj.card5.title'   : 'Territory Manager',
+    'proj.card5.excerpt' : 'Gestão inteligente de territórios com mapeamento em tempo real, controle de cobertura e inteligência operacional.',
+    'proj.card5.quote'   : 'O Territory Manager transformou nossa organização. Ter a visão exata da cobertura em tempo real mudou o jogo.',
+    'proj.card5.author'  : 'Equipe Admin',
+    'proj.card5.role'    : 'Territory Pro',
 
     /* ── SERVIÇOS ── */
     'serv.hero.tag'    : 'NOSSAS CAPACIDADES // 2026',
@@ -336,10 +371,24 @@ const TRANSLATIONS = {
     'serv.q3.title'    : 'Tamanho esperado do projeto?',
     'serv.q3.opt1'     : 'MVP Startup',
     'serv.q3.opt2'     : 'App em Crescimento',
-    'serv.q3.opt3'     : 'Suite Enterprise',
+    'serv.q3.opt3'     : 'Suíte Enterprise',
     'serv.q3.back'     : '← Voltar',
     'serv.result.title': 'Arquitetura Gerada',
     'serv.result.new'  : 'Nova Sessão',
+    'serv.sa.pre'      : 'MONTE SEU PROJETO',
+    'serv.sa.title'    : 'Arquitetura de soluções sob medida',
+    'serv.sa.sub'      : 'Entenda qual formato de produto, tecnologia e estratégia faz mais sentido para o seu cenário.',
+    'serv.sa.landingSub': 'Rápido, objetivo e personalizado.',
+    'serv.sa.start'    : 'Começar agora',
+    'serv.sa.progress' : 'Pergunta 1 de 5',
+    'serv.sa.result.done': 'DIAGNÓSTICO CONCLUÍDO',
+    'serv.sa.result.why' : 'Por quê',
+    'serv.sa.result.rec' : 'Recomendação estratégica',
+    'serv.sa.result.tech': 'Tecnologias sugeridas',
+    'serv.sa.result.flow': 'Modelo de execução',
+    'serv.sa.result.cta' : 'Falar com especialista',
+    'serv.sa.result.restart': 'Refazer diagnóstico',
+    'serv.hud.close'   : 'FECHAR [X]',
   },
   en: {
     /* ── NAV ── */
@@ -348,6 +397,7 @@ const TRANSLATIONS = {
     'nav.services'    : 'Services',
     'nav.about'       : 'About us',
     'nav.cta'         : 'Start a Project',
+    'nav.mobileCta'   : 'Start Project →',
 
     /* ── INDEX HERO ── */
     'hero.tag'        : 'GIVE SOFTWARE // 2026',
@@ -372,6 +422,16 @@ const TRANSLATIONS = {
     'process.s2.desc' : 'Our team defines the ideal stack, architecture and delivery roadmap before writing a single line of code.',
     'process.s3.title': 'Build & Delivery',
     'process.s3.desc' : 'Weekly sprints, full transparency. You follow every step in real-time until final deployment.',
+    'process.step1.title': 'Discovery',
+    'process.step1.desc' : 'Understanding the core problem.',
+    'process.step2.title': 'Strategy',
+    'process.step2.desc' : 'Architecting the solution.',
+    'process.step3.title': 'Design',
+    'process.step3.desc' : 'Crafting the experience.',
+    'process.step4.title': 'Build',
+    'process.step4.desc' : 'Engineering the product.',
+    'process.step5.title': 'Launch',
+    'process.step5.desc' : 'Deploy and scale.',
 
     /* ── SERVICES ── */
     'services.pre'    : 'What we deliver',
@@ -391,6 +451,10 @@ const TRANSLATIONS = {
     'service.design.label': 'UX/UI Design',
     'service.design.title': 'Product Design',
     'service.design.desc' : 'Interfaces combining premium aesthetics with flawless usability. From wireframe to design system.',
+    'service.backend.title': 'API & Backend',
+    'service.backend.desc' : 'Robust and secure microservices at scale.',
+    'service.cloudops.title': 'Cloud & DevOps',
+    'service.cloudops.desc' : 'AWS/GCP infrastructure, CI/CD pipelines, and serverless.',
 
     /* ── JOURNEY ── */
     'journey.pre'     : 'Our capability',
@@ -493,10 +557,11 @@ const TRANSLATIONS = {
 
     /* ── PROJETOS ── */
     'proj.hero.tag'    : 'MOST RECENT // Q1 2026',
-    'proj.hero.desc'   : 'Scaling a decentralized banking platform for 2M users with ultra-low latency and bank-grade security protocols.',
-    'proj.m1.lbl'      : 'Uptime Achieved',
-    'proj.m2.lbl'      : 'Avg. Response Time',
-    'proj.m3.lbl'      : 'User Retention',
+    'proj.hero.title'  : 'Message automation.',
+    'proj.hero.desc'   : 'Creation of a messaging automation system for companies focused on marketing and sales.',
+    'proj.m1.lbl'      : 'Time Reduction',
+    'proj.m2.lbl'      : 'Avg. Sending Time',
+    'proj.m3.lbl'      : 'User Reach Increase',
     'proj.port.pre'    : 'The Portfolio',
     'proj.port.title'  : 'Selected Works.',
     'proj.filter.all'  : 'All',
@@ -504,12 +569,36 @@ const TRANSLATIONS = {
     'proj.filter.apps' : 'Apps',
     'proj.filter.auto' : 'Automation',
     'proj.filter.ai'   : 'AI Systems',
-    'proj.filter.ecommerce': 'Ecommerce',
+    'proj.filter.ecommerce': 'E-commerce',
     'proj.p1.exc'      : 'High-frequency trading interface with real-time liquid feedback systems.',
     'proj.p2.exc'      : 'Next-gen shopping experience with AR product previewing.',
     'proj.p3.exc'      : 'Predictive diagnostics platform using proprietary LLM architectures.',
     'proj.p4.exc'      : 'Automated infrastructure management for large-scale energy grids.',
     'proj.p5.exc'      : 'Complete digitization of the analysis pillar, reducing filling time by 67%.',
+    'proj.card1.title'   : 'Parafina Bronze',
+    'proj.card1.excerpt' : 'Complete e-commerce transformation: from basic to premium with a focus on conversion and SEO.',
+    'proj.card1.quote'   : 'The jump in Google visibility and the new shopping experience changed our revenue level.',
+    'proj.card1.author'  : 'Parafina Team',
+    'proj.card1.role'    : 'Founder',
+    'proj.card2.title'   : 'Automation Message',
+    'proj.card2.excerpt' : 'Intelligent message automation system with LLM integration for massive scale.',
+    'proj.card2.quote'   : 'We went from a 100% manual process to nearly 3,000 messages per day without human intervention.',
+    'proj.card2.author'  : 'Operations',
+    'proj.card2.role'    : 'Growth Manager',
+    'proj.card3.title'   : 'Móveis Florença',
+    'proj.card3.quote'   : 'The new system eliminated paperwork and brought absurd agility. We now close 3x more sales in the same time.',
+    'proj.card3.author'  : 'Florença Team',
+    'proj.card3.role'    : 'Analysis Department',
+    'proj.card4.title'   : 'Academ.ia',
+    'proj.card4.excerpt' : 'Fitness revolution with AI-personalized workouts and real-time movement analysis.',
+    'proj.card4.quote'   : 'Academ.ia transformed how our students train, delivering results 3x faster and safer.',
+    'proj.card4.author'  : 'Academ.ia Team',
+    'proj.card4.role'    : 'Founders',
+    'proj.card5.title'   : 'Territory Manager',
+    'proj.card5.excerpt' : 'Smart territory management with real-time mapping, coverage control, and operational intelligence.',
+    'proj.card5.quote'   : 'Territory Manager transformed our organization. Having exact real-time coverage visibility changed the game.',
+    'proj.card5.author'  : 'Admin Team',
+    'proj.card5.role'    : 'Territory Pro',
 
     /* ── SERVIÇOS ── */
     'serv.hero.tag'    : 'OUR CAPABILITIES // 2026',
@@ -534,7 +623,7 @@ const TRANSLATIONS = {
     'serv.s4.title'    : 'UX & UI Design',
     'serv.s4.desc'     : 'User-centered design combining premium aesthetics with impeccable usability.',
     'serv.s5.num'      : '05 // COMMERCE',
-    'serv.s5.title'    : 'Ecommerce',
+    'serv.s5.title'    : 'E-commerce',
     'serv.s5.desc'     : 'Robust sales platforms focused on conversion with fast checkout and full payment integration.',
     'serv.funnel.pre'  : 'Build your project',
     'serv.funnel.title': 'Solution Architect',
@@ -555,6 +644,20 @@ const TRANSLATIONS = {
     'serv.q3.back'     : '← Back',
     'serv.result.title': 'Generated Architecture',
     'serv.result.new'  : 'Start New Session',
+    'serv.sa.pre'      : 'BUILD YOUR PROJECT',
+    'serv.sa.title'    : 'Tailored solution architecture',
+    'serv.sa.sub'      : 'Understand which product format, technology, and strategy best fit your scenario.',
+    'serv.sa.landingSub': 'Fast, objective, and personalized.',
+    'serv.sa.start'    : 'Start now',
+    'serv.sa.progress' : 'Question 1 of 5',
+    'serv.sa.result.done': 'DIAGNOSIS COMPLETED',
+    'serv.sa.result.why' : 'Why',
+    'serv.sa.result.rec' : 'Strategic recommendation',
+    'serv.sa.result.tech': 'Suggested technologies',
+    'serv.sa.result.flow': 'Execution model',
+    'serv.sa.result.cta' : 'Talk to a specialist',
+    'serv.sa.result.restart': 'Retake diagnosis',
+    'serv.hud.close'   : 'CLOSE [X]',
   }
 };
 

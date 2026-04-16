@@ -22,11 +22,11 @@
       --border: rgba(46,196,165,0.14);
       --border-accent: rgba(46,196,165,0.32);
       --radius: 16px;
-      --font-display: 'Syne', sans-serif;
-      --font-body: 'DM Sans', sans-serif;
+      --font-display: 'Chakra Petch', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg);
@@ -48,20 +48,6 @@
     a { color: inherit; text-decoration: none; }
     h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.1; margin-bottom: 1rem; }
 
-    /* Custom Cursor */
-    #cursor-dot {
-      position: fixed; width: 8px; height: 8px; border-radius: 50%;
-      background: var(--accent); pointer-events: none; z-index: 99999;
-      transform: translate(-50%,-50%); mix-blend-mode: difference;
-      transition: transform .1s ease, opacity .2s;
-    }
-    #cursor-ring {
-      position: fixed; width: 28px; height: 28px; border-radius: 50%;
-      border: 1px solid rgba(46,196,165,.5); pointer-events: none; z-index: 99998;
-      transform: translate(-50%,-50%); transition: all .18s cubic-bezier(.16,1,.3,1);
-    }
-    a:hover ~ #cursor-ring, button:hover ~ #cursor-ring, .interactive:hover ~ #cursor-ring { transform: translate(-50%,-50%) scale(1.8); }
-
     /* Nav Scrollspy */
     nav { 
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.1rem 2.5rem;
@@ -75,7 +61,7 @@
     .nav-links { display: flex; gap: 2.2rem; list-style: none; }
     .nav-links a { font-size: .88rem; color: var(--text-muted); letter-spacing: .04em; text-transform: uppercase; text-decoration: none; transition: color .2s; }
     .nav-links a:hover, .nav-links a.active { color: #fff; }
-    .nav-cta { font-family: var(--font-body); font-size: .88rem; font-weight: 500; padding: .65rem 1.5rem; background: var(--accent); color: #fff; border: none; border-radius: 8px; cursor: none; box-shadow: 0 0 22px var(--accent-glow); transition: all .3s; }
+    .nav-cta { font-family: var(--font-body); font-size: .88rem; font-weight: 500; padding: .65rem 1.5rem; background: var(--accent); color: #fff; border: none; border-radius: 8px; box-shadow: 0 0 22px var(--accent-glow); transition: all .3s; }
     .nav-cta:hover { box-shadow: 0 0 38px rgba(46,196,165,.5); transform: translateY(-1px); }
     
     .logo-poly { transform-origin: 50px 42px; }
@@ -139,7 +125,7 @@
     }
     .p-card-media { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
     .p-card-media img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: all 0.8s; scale: 1.05; }
-    .p-card:hover .p-card-media img { opacity: 1; scale: 1; transform: translateY(-10px); }
+    .p-card:hover .p-card-media img { opacity: 0.6; filter: blur(6px); scale: 1; transform: translateY(-10px); }
     
     .p-card-overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(12,12,13,0.95), transparent 70%); }
     
@@ -147,10 +133,10 @@
     .p-card:hover .p-card-info { transform: translateY(-20px); }
     
     .p-card-meta { display: flex; gap: 12px; margin-bottom: 1rem; }
-    .p-card-tag { font-family: monospace; font-size: 0.65rem; color: var(--accent); background: var(--accent-dim); border: 1px solid rgba(46,196,165,0.1); padding: 2px 8px; border-radius: 4px; }
+    .p-card-tag { font-family: monospace; font-size: 0.65rem; color: #fff; background: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; font-weight: 600; text-shadow: none; }
     
     .p-card-title { font-size: 2rem; color: #fff; margin-bottom: 0.5rem; }
-    .p-card-excerpt { font-size: 0.9rem; color: var(--text-muted); opacity: 0; transform: translateY(10px); transition: all 0.4s 0.1s; max-width: 80%; }
+    .p-card-excerpt { font-size: 0.9rem; color: var(--text-muted); opacity: 0; transform: translateY(10px); transition: all 0.4s 0.1s; max-width: 80%; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.88rem; }
     .p-card:hover .p-card-excerpt { opacity: 1; transform: translateY(0); }
     
     /* Hover Holographic Reveal */
@@ -164,7 +150,7 @@
         margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); opacity: 0; transform: translateY(20px); transition: all 0.4s 0.2s;
     }
     .p-card:hover .p-card-testimonial { opacity: 1; transform: translateY(0); }
-    .p-quote { font-style: italic; font-size: 0.85rem; color: #fff; margin-bottom: 1rem; position: relative; }
+    .p-quote { font-style: italic; font-size: 0.85rem; color: #fff; margin-bottom: 1rem; position: relative; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.75rem; }
     .p-quote::before { content: '“'; position: absolute; left: -15px; top: -5px; font-size: 2rem; color: var(--accent); opacity: 0.4; }
     .p-author { display: flex; align-items: center; gap: 10px; }
     .p-author-img { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--accent); }
@@ -196,6 +182,15 @@
         #project-portal { width: 100%; padding: 5rem 1.5rem; }
     }
 
+    /* Button Styles */
+    .btn { padding: 1rem 2rem; border-radius: 8px; font-weight: 500; font-family: var(--font-body); transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 0 20px var(--accent-glow); animation: ctaPulse 2.5s ease-in-out infinite; }
+    .btn-primary:hover { animation: none; box-shadow: 0 0 50px rgba(46,196,165,.7); transform: translateY(-2px); }
+    @keyframes ctaPulse { 0%, 100% { box-shadow: 0 0 20px var(--accent-glow); } 50% { box-shadow: 0 0 45px rgba(46,196,165,.6); } }
+
+    /* Mobile CTA bar */
+    .mobile-cta-bar { display: none; }
+
     /* ── MOBILE MENU & RESPONSIVENESS ── */
     .mobile-menu-btn {
       display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 10001;
@@ -215,6 +210,7 @@
 
     @media (max-width: 900px) {
       .nav-links, .nav-cta { display: none; }
+      .mobile-menu-btn { display: flex; }
       nav { padding: 1rem 1.5rem; }
       
       .p-hero { padding: 6rem 1.5rem; height: auto; min-height: 80vh; }

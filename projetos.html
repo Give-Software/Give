@@ -1,258 +1,227 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projetos | Give Software</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <script src="shared-components.js"></script>
   <script src="lang.js"></script>
   <link rel="stylesheet" href="styles/projetos.css">
-</head><body>
-<!-- Full page progress -->
-<div id="page-progress"></div>
+</head>
 
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
+<body>
+<header id="shared-header" data-active="projects"></header>
 
-<!-- NAV -->
-<nav id="main-nav">
-  <a class="nav-logo" href="index.html">
-    <svg width="32" height="28" viewBox="0 0 100 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon class="logo-poly logo-poly-1" points="0,80 30,10 50,50" fill="#2d3d4f"/>
-      <polygon class="logo-poly logo-poly-2" points="100,80 70,10 50,50" fill="#2d3d4f"/>
-      <polygon class="logo-poly logo-poly-1" points="30,10 50,50 50,80" fill="#233040"/>
-      <polygon class="logo-poly logo-poly-2" points="70,10 50,50 50,80" fill="#233040"/>
-      <polygon class="logo-poly logo-poly-center" points="50,0 62,36 50,50 38,36" fill="#2ec4a5"/>
-      <polygon class="logo-poly logo-poly-center" points="50,50 60,68 50,80 40,68" fill="#1a9982"/>
-    </svg>
-    <span>GIVE <span style="color:var(--accent)">SOFTWARE</span></span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html" data-i18n="nav.home">Início</a></li>
-    <li><a href="projetos.html" class="active" data-i18n="nav.projects">Projetos</a></li>
-    <li><a href="servicos.html" data-i18n="nav.services">Serviços</a></li>
-    <li><a href="sobre.html" data-i18n="nav.about">Sobre nós</a></li>
-  </ul>
-  <div class="nav-right">
-    <button class="lang-toggle" id="lang-toggle" data-lang="pt" onclick="toggleLang()">
-      <span class="lt-dot"></span>
-      <span class="lt-pt">PT</span>
-      <span class="lt-sep">|</span>
-      <span class="lt-en">EN</span>
-    </button>
-    <a class="nav-cta" href="sobre.html#cta" data-i18n="nav.cta" data-modal="start-project">Iniciar Projeto</a>
-    <div class="mobile-menu-btn" id="mobile-btn">
-      <span></span><span></span><span></span>
+
+  <!-- Spotlight Hero -->
+  <section class="p-hero">
+    <div class="p-hero-bg">
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2000"
+        alt="Featured Project">
     </div>
-  </div>
-</nav>
+    <div class="p-hero-overlay"></div>
 
-<!-- Mobile Menu Overlay -->
-<div class="mobile-menu-overlay" id="mobile-menu">
-  <div class="mobile-menu-close" id="mobile-close">&times;</div>
-  <ul class="mobile-nav-links">
-    <li><a href="index.html">Início</a></li>
-    <li><a href="projetos.html" class="active">Projetos</a></li>
-    <li><a href="servicos.html">Serviços</a></li>
-    <li><a href="sobre.html">Sobre nós</a></li>
-  </ul>
-  <a class="nav-cta" href="sobre.html#cta" style="margin-top:3rem;" data-i18n="nav.cta" data-modal="start-project">Iniciar Projeto</a>
-</div>
+    <div class="p-hero-content reveal">
+      <div class="p-hero-tag" data-i18n="proj.hero.tag">MAIS RECENTE // Q1 2026</div>
+      <h1 class="p-hero-title" data-i18n="proj.hero.title">Automação de mensagens.</h1>
+      <p class="p-hero-desc" data-i18n="proj.hero.desc">Criação de um sistema de automação de mensagens para empresas
+        com foco em marketing e vendas.</p>
 
-<!-- Spotlight Hero -->
-<section class="p-hero">
-  <div class="p-hero-bg">
-    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2000" alt="Featured Project">
-  </div>
-  <div class="p-hero-overlay"></div>
-  
-  <div class="p-hero-content reveal">
-    <div class="p-hero-tag" data-i18n="proj.hero.tag">MAIS RECENTE // Q1 2026</div>
-    <h1 class="p-hero-title">Nova Core<br><span class="glow-text">Banking.</span></h1>
-    <p class="p-hero-desc" data-i18n="proj.hero.desc">Escalando uma plataforma bancária descentralizada para 2M de usuários com latência ultra-baixa e protocolos de segurança bancária.</p>
-    
-    <div class="p-hero-metrics">
+      <div class="p-hero-metrics">
         <div class="p-metric">
-            <span class="p-metric-val">99.99%</span>
-            <span class="p-metric-lbl" data-i18n="proj.m1.lbl">Uptime Alcançado</span>
+          <span class="p-metric-val">60%</span>
+          <span class="p-metric-lbl" data-i18n="proj.m1.lbl">Redução de tempo</span>
         </div>
         <div class="p-metric">
-            <span class="p-metric-val">2.5s</span>
-            <span class="p-metric-lbl" data-i18n="proj.m2.lbl">Tempo Médio de Resposta</span>
+          <span class="p-metric-val">4s</span>
+          <span class="p-metric-lbl" data-i18n="proj.m2.lbl">Tempo Médio de Envio</span>
         </div>
         <div class="p-metric">
-            <span class="p-metric-val">+340%</span>
-            <span class="p-metric-lbl" data-i18n="proj.m3.lbl">Retenção de Usuários</span>
+          <span class="p-metric-val">4 vezes +</span>
+          <span class="p-metric-lbl" data-i18n="proj.m3.lbl">Aumento de usuários alcançados</span>
         </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Projects Hub -->
-<section class="section" id="projects">
+  <!-- Projects Hub -->
+  <section class="section" id="projects">
     <div class="section-header reveal">
-        <div class="pre-title" data-i18n="proj.port.pre">O Portfólio</div>
-        <h2 class="section-title" data-i18n="proj.port.title">Trabalhos<br>Selecionados.</h2>
+      <div class="pre-title" data-i18n="proj.port.pre">O Portfólio</div>
+      <h2 class="section-title" data-i18n="proj.port.title">Trabalhos<br>Selecionados.</h2>
     </div>
 
     <!-- Filter Hub -->
     <div class="filter-section reveal">
-        <div class="filter-hub" id="filter-hub">
-            <div class="filter-active-bg" id="filter-bg"></div>
-            <button class="filter-btn active" data-filter="all" data-i18n="proj.filter.all">Todos</button>
-            <button class="filter-btn" data-filter="sites" data-i18n="proj.filter.sites">Sites</button>
-            <button class="filter-btn" data-filter="apps" data-i18n="proj.filter.apps">Aplicativos</button>
-            <button class="filter-btn" data-filter="auto" data-i18n="proj.filter.auto">Automação</button>
-            <button class="filter-btn" data-filter="ai" data-i18n="proj.filter.ai">Sistemas IA</button>
-            <button class="filter-btn" data-filter="ecommerce" data-i18n="proj.filter.ecommerce">Ecommerce</button>
-        </div>
+      <div class="filter-hub" id="filter-hub">
+        <div class="filter-active-bg" id="filter-bg"></div>
+        <button class="filter-btn active" data-filter="all" data-i18n="proj.filter.all">Todos</button>
+        <button class="filter-btn" data-filter="sites" data-i18n="proj.filter.sites">Sites</button>
+        <button class="filter-btn" data-filter="apps" data-i18n="proj.filter.apps">Aplicativos</button>
+        <button class="filter-btn" data-filter="auto" data-i18n="proj.filter.auto">Automação</button>
+        <button class="filter-btn" data-filter="ai" data-i18n="proj.filter.ai">Sistemas IA</button>
+        <button class="filter-btn" data-filter="ecommerce" data-i18n="proj.filter.ecommerce">Ecommerce</button>
+      </div>
     </div>
 
     <!-- Kinetic Grid -->
     <div class="p-grid" id="project-grid">
 
-        <!-- Project 4 (Parafina Bronze) -->
-        <div class="p-card reveal delay-2 interactive" data-category="ecommerce">
-            <div class="p-card-media">
-                <img src="assets/projects/parafina.png" alt="Parafina Bronze">
-            </div>
-            <div class="p-card-overlay"></div>
-            <div class="p-card-info">
-                <div class="p-card-meta">
-                    <span class="p-card-tag">SHOPIFY</span>
-                    <span class="p-card-tag">UX/UI</span>
-                </div>
-                <h3 class="p-card-title">Parafina Bronze</h3>
-                <p class="p-card-excerpt">Transformação completa de e-commerce: do amador ao luxo com foco em conversão e SEO.</p>
-                <div class="p-card-testimonial">
-                    <p class="p-quote">O salto de visibilidade no Google e a nova experiência de compra mudaram nosso patamar de faturamento.</p>
-                    <div class="p-author">
-                        <img src="https://i.pravatar.cc/100?u=5" alt="Author" class="p-author-img">
-                        <div class="p-author-info">
-                            <div class="p-author-name">Equipe Parafina</div>
-                            <div class="p-author-role">Fundadora</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- Project 4 (Parafina Bronze) -->
+      <div class="p-card reveal delay-2 interactive" data-category="ecommerce">
+        <div class="p-card-media">
+          <img src="assets/projects/parafina.png" alt="Parafina Bronze">
         </div>
+        <div class="p-card-overlay"></div>
+        <div class="p-card-info">
+          <div class="p-card-meta">
+            <span class="p-card-tag">SHOPIFY</span>
+            <span class="p-card-tag">UX/UI</span>
+          </div>
+          <h3 class="p-card-title" data-i18n="proj.card1.title">Parafina Bronze</h3>
+          <p class="p-card-excerpt" data-i18n="proj.card1.excerpt">Transformação completa de e-commerce: do amador ao luxo com foco em conversão e SEO.
+          </p>
+          <div class="p-card-testimonial">
+            <p class="p-quote" data-i18n="proj.card1.quote">O salto de visibilidade no Google e a nova experiência de compra mudaram nosso patamar de
+              faturamento.</p>
+            <div class="p-author">
+              <img src="https://i.pravatar.cc/100?u=5" alt="Author" class="p-author-img">
+              <div class="p-author-info">
+                <div class="p-author-name" data-i18n="proj.card1.author">Equipe Parafina</div>
+                <div class="p-author-role" data-i18n="proj.card1.role">Fundadora</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <!-- Project 5 (Automation Message) -->
-        <div class="p-card reveal delay-1 interactive" data-category="auto">
-            <div class="p-card-media">
-                <img src="assets/projects/automation_msg.png" alt="Automation Message">
-            </div>
-            <div class="p-card-overlay"></div>
-            <div class="p-card-info">
-                <div class="p-card-meta">
-                    <span class="p-card-tag">PYTHON</span>
-                    <span class="p-card-tag">IA AGENTS</span>
-                </div>
-                <h3 class="p-card-title">Automation Message</h3>
-                <p class="p-card-excerpt">Sistema inteligente de automação de mensagens com integração de LLMs para escala massiva.</p>
-                <div class="p-card-testimonial">
-                    <p class="p-quote">Saímos de um processo 100% manual para uma escala de quase 3 mil mensagens por dia sem intervenção humana.</p>
-                    <div class="p-author">
-                        <img src="https://i.pravatar.cc/100?u=6" alt="Author" class="p-author-img">
-                        <div class="p-author-info">
-                            <div class="p-author-name">Operações</div>
-                            <div class="p-author-role">Gestor de Growth</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- Project 5 (Automation Message) -->
+      <div class="p-card reveal delay-1 interactive" data-category="auto">
+        <div class="p-card-media">
+          <img src="assets/projects/automation_msg.png" alt="Automation Message">
         </div>
+        <div class="p-card-overlay"></div>
+        <div class="p-card-info">
+          <div class="p-card-meta">
+            <span class="p-card-tag">PYTHON</span>
+            <span class="p-card-tag">IA AGENTS</span>
+          </div>
+          <h3 class="p-card-title" data-i18n="proj.card2.title">Automation Message</h3>
+          <p class="p-card-excerpt" data-i18n="proj.card2.excerpt">Sistema inteligente de automação de mensagens com integração de LLMs para escala
+            massiva.</p>
+          <div class="p-card-testimonial">
+            <p class="p-quote" data-i18n="proj.card2.quote">Saímos de um processo 100% manual para uma escala de quase 3 mil mensagens por dia sem
+              intervenção humana.</p>
+            <div class="p-author">
+              <img src="https://i.pravatar.cc/100?u=6" alt="Author" class="p-author-img">
+              <div class="p-author-info">
+                <div class="p-author-name" data-i18n="proj.card2.author">Operações</div>
+                <div class="p-author-role" data-i18n="proj.card2.role">Gestor de Growth</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <!-- Project 6 (Móveis Florença) -->
-        <div class="p-card reveal delay-2 interactive" data-category="auto sites">
-            <div class="p-card-media">
-                <img src="assets/projects/MoveisFlorenca2.png" alt="Móveis Florença">
-            </div>
-            <div class="p-card-overlay"></div>
-            <div class="p-card-info">
-                <div class="p-card-meta">
-                    <span class="p-card-tag">C# // .NET</span>
-                    <span class="p-card-tag">INTEGRATION</span>
-                </div>
-                <h3 class="p-card-title">Móveis Florença</h3>
-                <p class="p-card-excerpt" data-i18n="proj.p5.exc">Digitalização completa do pilar de análise, reduzindo tempo de preenchimento em 67%.</p>
-                
-                <div class="p-card-testimonial">
-                    <p class="p-quote">O novo sistema eliminou o papel e trouxe uma agilidade absurda. Agora conseguimos fechar 3x mais vendas no mesmo tempo.</p>
-                    <div class="p-author">
-                        <img src="https://i.pravatar.cc/100?u=7" alt="Author" class="p-author-img">
-                        <div class="p-author-info">
-                            <div class="p-author-name">Time Florença</div>
-                            <div class="p-author-role">Pilar de Análise</div>
-                    </div>
-                </div>
-            </div>
+      <!-- Project 6 (Móveis Florença) -->
+      <div class="p-card reveal delay-2 interactive" data-category="auto sites">
+        <div class="p-card-media">
+          <img src="assets/projects/MoveisFlorenca2.png" alt="Móveis Florença">
         </div>
+        <div class="p-card-overlay"></div>
+        <div class="p-card-info">
+          <div class="p-card-meta">
+            <span class="p-card-tag">C# // .NET</span>
+            <span class="p-card-tag">INTEGRATION</span>
+          </div>
+          <h3 class="p-card-title" data-i18n="proj.card3.title">Móveis Florença</h3>
+          <p class="p-card-excerpt" data-i18n="proj.p5.exc">Digitalização completa do pilar de análise, reduzindo tempo
+            de preenchimento em 67%.</p>
+
+          <div class="p-card-testimonial">
+            <p class="p-quote" data-i18n="proj.card3.quote">O novo sistema eliminou o papel e trouxe uma agilidade absurda. Agora conseguimos fechar
+              3x mais vendas no mesmo tempo.</p>
+            <div class="p-author">
+              <img src="https://i.pravatar.cc/100?u=7" alt="Author" class="p-author-img">
+              <div class="p-author-info">
+                <div class="p-author-name" data-i18n="proj.card3.author">Time Florença</div>
+                <div class="p-author-role" data-i18n="proj.card3.role">Pilar de Análise</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 7 (Academ.ia) -->
+      <div class="p-card reveal delay-1 interactive" data-category="apps">
+        <div class="p-card-media">
+          <img src="assets/projects/AcademIA2.png" alt="Academ.ia">
+        </div>
+        <div class="p-card-overlay"></div>
+        <div class="p-card-info">
+          <div class="p-card-meta">
+            <span class="p-card-tag">IA & MOBILE</span>
+            <span class="p-card-tag">HEALTH TECH</span>
+          </div>
+          <h3 class="p-card-title" data-i18n="proj.card4.title">Academ.ia</h3>
+          <p class="p-card-excerpt" data-i18n="proj.card4.excerpt">Revolução fitness com treinos 100% personalizados por inteligência artificial e
+            análise de movimento em tempo real.</p>
+          <div class="p-card-testimonial">
+            <p class="p-quote" data-i18n="proj.card4.quote">O Academ.ia transformou a forma como nossos alunos treinam, garantindo resultados 3x mais
+              rápidos e seguros.</p>
+            <div class="p-author">
+              <img src="https://i.pravatar.cc/100?u=8" alt="Author" class="p-author-img">
+              <div class="p-author-info">
+                <div class="p-author-name" data-i18n="proj.card4.author">Time Academ.ia</div>
+                <div class="p-author-role" data-i18n="proj.card4.role">Fundadores</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Project 8 (Territory Manager) -->
+      <div class="p-card reveal delay-2 interactive" data-category="apps sites">
+        <div class="p-card-media">
+          <img src="assets/projects/territoryManager1.png" alt="Territory Manager">
+        </div>
+        <div class="p-card-overlay"></div>
+        <div class="p-card-info">
+          <div class="p-card-meta">
+            <span class="p-card-tag">MOBILE & MAPS</span>
+            <span class="p-card-tag">GEOLOCATION</span>
+          </div>
+          <h3 class="p-card-title" data-i18n="proj.card5.title">Territory Manager</h3>
+          <p class="p-card-excerpt" data-i18n="proj.card5.excerpt">Gestão inteligente de territórios com mapeamento em tempo real, controle de
+            cobertura e inteligência operacional.</p>
+          <div class="p-card-testimonial">
+            <p class="p-quote" data-i18n="proj.card5.quote">O Territory Manager transformou nossa organização. Ter a visão exata da cobertura em
+              tempo real mudou o jogo.</p>
+            <div class="p-author">
+              <img src="https://i.pravatar.cc/100?u=9" alt="Author" class="p-author-img">
+              <div class="p-author-info">
+                <div class="p-author-name" data-i18n="proj.card5.author">Equipe Admin</div>
+                <div class="p-author-role" data-i18n="proj.card5.role">Territory Pro</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- Project 7 (Academ.ia) -->
-        <div class="p-card reveal delay-1 interactive" data-category="apps">
-            <div class="p-card-media">
-                <img src="assets/projects/AcademIA2.png" alt="Academ.ia">
-            </div>
-            <div class="p-card-overlay"></div>
-            <div class="p-card-info">
-                <div class="p-card-meta">
-                    <span class="p-card-tag">IA & MOBILE</span>
-                    <span class="p-card-tag">HEALTH TECH</span>
-                </div>
-                <h3 class="p-card-title">Academ.ia</h3>
-                <p class="p-card-excerpt">Revolução fitness com treinos 100% personalizados por inteligência artificial e análise de movimento em tempo real.</p>
-                <div class="p-card-testimonial">
-                    <p class="p-quote">O Academ.ia transformou a forma como nossos alunos treinam, garantindo resultados 3x mais rápidos e seguros.</p>
-                    <div class="p-author">
-                        <img src="https://i.pravatar.cc/100?u=8" alt="Author" class="p-author-img">
-                        <div class="p-author-info">
-                            <div class="p-author-name">Time Academ.ia</div>
-                            <div class="p-author-role">Founders</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Project 8 (Territory Manager) -->
-        <div class="p-card reveal delay-2 interactive" data-category="apps sites">
-            <div class="p-card-media">
-                <img src="assets/projects/territoryManager1.png" alt="Territory Manager">
-            </div>
-            <div class="p-card-overlay"></div>
-            <div class="p-card-info">
-                <div class="p-card-meta">
-                    <span class="p-card-tag">MOBILE & MAPS</span>
-                    <span class="p-card-tag">GEOLOCATION</span>
-                </div>
-                <h3 class="p-card-title">Territory Manager</h3>
-                <p class="p-card-excerpt">Gestão inteligente de territórios com mapeamento em tempo real, controle de cobertura e inteligência operacional.</p>
-                <div class="p-card-testimonial">
-                    <p class="p-quote">O Territory Manager transformou nossa organização. Ter a visão exata da cobertura em tempo real mudou o jogo.</p>
-                    <div class="p-author">
-                        <img src="https://i.pravatar.cc/100?u=9" alt="Author" class="p-author-img">
-                        <div class="p-author-info">
-                            <div class="p-author-name">Admin Team</div>
-                            <div class="p-author-role">Territory Pro</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Project Deep-Dive Portal -->
-<div id="project-portal">
+  <!-- Project Deep-Dive Portal -->
+  <div id="project-portal">
     <button class="portal-close" id="portal-close">+</button>
     <div id="portal-content">
-        <!-- Content will be injected via JS -->
+      <!-- Content will be injected via JS -->
     </div>
-</div>
+  </div>
 
   <!-- Final CTA  Mission Control -->
   <!-- <section class="cta-section section" id="cta">
@@ -339,133 +308,95 @@
     </div>
   </section> -->
 
-  <!-- Footer (Same as others) -->
-  <footer>
-  <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:.5rem;">
-    <svg width="36" height="30" viewBox="0 0 100 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="0,80 30,10 50,50" fill="#2d3d4f"/>
-      <polygon points="100,80 70,10 50,50" fill="#2d3d4f"/>
-      <polygon points="30,10 50,50 50,80" fill="#233040"/>
-      <polygon points="70,10 50,50 50,80" fill="#233040"/>
-      <polygon points="50,0 62,36 50,50 38,36" fill="#2ec4a5"/>
-      <polygon points="50,50 60,68 50,80 40,68" fill="#1a9982"/>
-    </svg>
-    <div class="footer-wordmark interactive" style="margin-bottom:0px;">GIVE <span style="color:var(--accent)">SOFTWARE</span></div>
-  </div>
-  <p data-i18n="footer.desc">Construímos todo tipo de solução. Web. Mobile. Automação. Tudo.</p>
-  <div style="margin: 2rem 0; display: flex; gap: 2rem; justify-content: center;">
-    <a href="#" class="interactive" style="color:var(--accent)">Twitter</a>
-    <a href="#" class="interactive" style="color:var(--accent)">LinkedIn</a>
-    <a href="#" class="interactive" style="color:var(--accent)">GitHub</a>
-  </div>
-  <p style="font-size: 0.85rem; font-family: monospace;" data-i18n="footer.copy">© 2026 Give Software. Construído com propósito.</p>
-</footer>
 
-<script>
-    /* Custom Cursor */
-    (function(){
-      const dot=document.getElementById('cursor-dot');
-      const ring=document.getElementById('cursor-ring');
-      let rx=0,ry=0;
-      window.addEventListener('mousemove',e=>{
-        dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px';
-        rx+=(e.clientX-rx)*.12; ry+=(e.clientY-ry)*.12;
-        ring.style.left=rx+'px'; ring.style.top=ry+'px';
-      });
-      function lerp(){
-        rx+=(parseFloat(dot.style.left||0)-rx)*.12;
-        ry+=(parseFloat(dot.style.top||0)-ry)*.12;
-        ring.style.left=rx+'px'; ring.style.top=ry+'px';
-        requestAnimationFrame(lerp);
-      }
-      lerp();
-    })();
+
+  <script>
+
 
     /* Nav & Reveal & Scroll Progress */
-    (function(){
-      const nav=document.getElementById('main-nav');
-      const reveals=document.querySelectorAll('.reveal');
-      const pageProgress=document.getElementById('page-progress');
+    function initProjectsPage() {
+      const nav = document.getElementById('main-nav');
+      const reveals = document.querySelectorAll('.reveal');
+      const pageProgress = document.getElementById('page-progress');
 
-      window.addEventListener('scroll',()=>{
-        nav.classList.toggle('scrolled',window.scrollY>60);
-        
+      window.addEventListener('scroll', () => {
+        if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
+
         // Scroll Progress
-        const s=document.documentElement;
-        const prog=s.scrollTop/(s.scrollHeight-s.clientHeight);
-        if(pageProgress) pageProgress.style.width=(prog*100)+'%';
+        const s = document.documentElement;
+        const prog = s.scrollTop / (s.scrollHeight - s.clientHeight);
+        if (pageProgress) pageProgress.style.width = (prog * 100) + '%';
 
-        const wh=window.innerHeight;
-        reveals.forEach(el=>{
-          const top=el.getBoundingClientRect().top;
-          if(top<wh-100) el.classList.add('active');
+        const wh = window.innerHeight;
+        reveals.forEach(el => {
+          const top = el.getBoundingClientRect().top;
+          if (top < wh - 100) el.classList.add('active');
         });
-      },{passive:true});
-      setTimeout(()=>window.dispatchEvent(new Event('scroll')),100);
-    })();
+      }, { passive: true });
+      setTimeout(() => window.dispatchEvent(new Event('scroll')), 100);
 
     /* Filtering Logic */
-    (function(){
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const activeBg = document.getElementById('filter-bg');
-        const cards = document.querySelectorAll('.p-card');
-        
-        function updateFilterBg(btn) {
-            activeBg.style.width = btn.offsetWidth + 'px';
-            activeBg.style.height = btn.offsetHeight + 'px';
-            activeBg.style.left = btn.offsetLeft + 'px';
-            activeBg.style.top = btn.offsetTop + 'px';
-        }
+    (function () {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const activeBg = document.getElementById('filter-bg');
+      const cards = document.querySelectorAll('.p-card');
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                updateFilterBg(btn);
-                
-                // UX: Smooth scroll center on mobile
-                if(window.innerWidth < 1000) {
-                    btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                }
-                
-                const filter = btn.dataset.filter;
-                
-                cards.forEach(card => {
-                    const categories = card.dataset.category ? card.dataset.category.split(' ') : [];
-                    if(filter === 'all' || categories.includes(filter)) {
-                        card.style.display = 'block';
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0) scale(1)';
-                        }, 50);
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px) scale(0.95)';
-                        setTimeout(() => card.style.display = 'none', 400);
-                    }
-                });
-            });
+      function updateFilterBg(btn) {
+        activeBg.style.width = btn.offsetWidth + 'px';
+        activeBg.style.height = btn.offsetHeight + 'px';
+        activeBg.style.left = btn.offsetLeft + 'px';
+        activeBg.style.top = btn.offsetTop + 'px';
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          updateFilterBg(btn);
+
+          // UX: Smooth scroll center on mobile
+          if (window.innerWidth < 1000) {
+            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          }
+
+          const filter = btn.dataset.filter;
+
+          cards.forEach(card => {
+            const categories = card.dataset.category ? card.dataset.category.split(' ') : [];
+            if (filter === 'all' || categories.includes(filter)) {
+              card.style.display = 'block';
+              setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0) scale(1)';
+              }, 50);
+            } else {
+              card.style.opacity = '0';
+              card.style.transform = 'translateY(20px) scale(0.95)';
+              setTimeout(() => card.style.display = 'none', 400);
+            }
+          });
         });
+      });
 
-        // Init bg position
-        updateFilterBg(document.querySelector('.filter-btn.active'));
+      // Init bg position
+      updateFilterBg(document.querySelector('.filter-btn.active'));
     })();
 
     /* Project Portal Logic */
-    (function(){
-        const cards = document.querySelectorAll('.p-card');
-        const portal = document.getElementById('project-portal');
-        const close = document.getElementById('portal-close');
-        const content = document.getElementById('portal-content');
+    (function () {
+      const cards = document.querySelectorAll('.p-card');
+      const portal = document.getElementById('project-portal');
+      const close = document.getElementById('portal-close');
+      const content = document.getElementById('portal-content');
 
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                const title = card.querySelector('.p-card-title').innerText;
-                const tag = card.querySelector('.p-card-tag').innerText;
-                const media = card.querySelector('img').src;
-                
-                if(title === "Parafina Bronze") {
-                    content.innerHTML = `
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const title = card.querySelector('.p-card-title').innerText;
+          const tag = card.querySelector('.p-card-tag').innerText;
+          const media = card.querySelector('img').src;
+
+          if (title === "Parafina Bronze") {
+            content.innerHTML = `
                         <div class="pre-title">E-COMMERCE // SHOPIFY</div>
                         <h2 style="font-size:4rem;margin-bottom:2rem;">Parafina Bronze</h2>
                         <img src="${media}" style="width:100%;height:400px;object-fit:cover;border-radius:16px;margin-bottom:3rem;border:1px solid var(--border);">
@@ -499,9 +430,9 @@
                             <div>
                                 <h3 style="color:var(--accent);margin-bottom:1.5rem;">Ganhos Estratégicos</h3>
                                 <ul style="list-style:none;color:var(--text-muted);display:flex;flex-direction:column;gap:1.5rem;">
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">🚀 Explosão de Visibilidade</strong> Encontrada por quem busca ativamente, reduzindo dependência de redes sociais.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">✨ Confiança Imediata</strong> Design premium que converte curiosos em compradores reais.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">🛒 Jornada Fluida</strong> Divisão lógica que reduz drasticamente a taxa de abandono.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Explosão de Visibilidade</strong> Encontrada por quem busca ativamente, reduzindo dependência de redes sociais.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Confiança Imediata</strong> Design premium que converte curiosos em compradores reais.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Jornada Fluida</strong> Divisão lógica que reduz drasticamente a taxa de abandono.</li>
                                 </ul>
                             </div>
                             <div>
@@ -515,8 +446,8 @@
                             </div>
                         </div>
                     `;
-                } else if(title === "Automation Message") {
-                    content.innerHTML = `
+          } else if (title === "Automation Message") {
+            content.innerHTML = `
                         <div class="pre-title">PYTHON // AI AGENTS</div>
                         <h2 style="font-size:4rem;margin-bottom:2rem;">Automation Message</h2>
                         <img src="${media}" style="width:100%;height:400px;object-fit:cover;border-radius:16px;margin-bottom:3rem;border:1px solid var(--border);">
@@ -550,9 +481,9 @@
                             <div>
                                 <h3 style="color:var(--accent);margin-bottom:1.5rem;">Vantagens Operacionais</h3>
                                 <ul style="list-style:none;color:var(--text-muted);display:flex;flex-direction:column;gap:1.5rem;">
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">🤖 Processamento Inteligente</strong> Uso de LLMs para garantir que cada mensagem tenha contexto e relevância.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">⏱️ Liberação de Talentos</strong> O time de vendas agora foca apenas em responder interessados, não em prospecção fria.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">📊 Registro Completo</strong> Logs em tempo real de cada interação para auditoria e melhoria contínua.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Processamento Inteligente</strong> Uso de LLMs para garantir que cada mensagem tenha contexto e relevância.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Liberação de Talentos</strong> O time de vendas agora foca apenas em responder interessados, não em prospecção fria.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Registro Completo</strong> Logs em tempo real de cada interação para auditoria e melhoria contínua.</li>
                                 </ul>
                             </div>
                             <div>
@@ -567,8 +498,8 @@
                             </div>
                         </div>
                     `;
-                } else if(title === "Territory Manager") {
-                    content.innerHTML = `
+          } else if (title === "Territory Manager") {
+            content.innerHTML = `
                         <div class="pre-title">MOBILE & PLATFORM // GEOLOCATION</div>
                         <h2 style="font-size:4rem;margin-bottom:2rem;">Territory Manager</h2>
                         
@@ -612,13 +543,13 @@
 
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:4rem;">
                             <div>
-                                <h3 style="color:var(--accent);margin-bottom:1.5rem;">🚀 Ganhos Estratégicos</h3>
+                                <h3 style="color:var(--accent);margin-bottom:1.5rem;">Ganhos Estratégicos</h3>
                                 <ul style="list-style:none;color:var(--text-muted);display:flex;flex-direction:column;gap:1.5rem;">
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">🧠 Gestão Inteligente</strong> Visualização e distribuição de territórios com máxima eficiência digital.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">📍 Mapeamento Real-Time</strong> Trajeto automático e identificação instantânea de regiões pendentes.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">⏱️ Controle de Tempo</strong> Monitoramento preciso eliminando falhas de registro humano.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">🚨 Alertas de Atividade</strong> Notificações sobre territórios sem cobertura ou que precisam de atenção.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">📊 Relatórios Advanced</strong> Exportação CSV, controle de horas totais e histórico por congregação.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Gestão Inteligente</strong> Visualização e distribuição de territórios com máxima eficiência digital.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Mapeamento Real-Time</strong> Trajeto automático e identificação instantânea de regiões pendentes.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Controle de Tempo</strong> Monitoramento preciso eliminando falhas de registro humano.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Alertas de Atividade</strong> Notificações sobre territórios sem cobertura ou que precisam de atenção.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Relatórios Advanced</strong> Exportação CSV, controle de horas totais e histórico por congregação.</li>
                                 </ul>
                             </div>
                             <div>
@@ -633,15 +564,15 @@
                                 </div>
                                 <div style="margin-top:2rem;padding:2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;">
                                     <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.8;">
-                                        <strong style="color:var(--accent);display:block;margin-bottom:10px;">💡 Visão do Produto</strong>
+                                        <strong style="color:var(--accent);display:block;margin-bottom:10px;">Visão do Produto</strong>
                                         O Territory Manager é uma plataforma completa de gestão territorial que transforma processos manuais em um ecossistema digital inteligente, oferecendo controle, precisão e visibilidade total em tempo real.
                                     </p>
                                 </div>
                             </div>
                         </div>
                     `;
-                } else if(title === "Academ.ia") {
-                    content.innerHTML = `
+          } else if (title === "Academ.ia") {
+            content.innerHTML = `
                         <div class="pre-title">IA & MOBILE // 2026 REVOLUTION</div>
                         <h2 style="font-size:4rem;margin-bottom:2rem;">Academ.ia</h2>
                         
@@ -685,12 +616,12 @@
 
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:4rem;">
                             <div>
-                                <h3 style="color:var(--accent);margin-bottom:1.5rem;">🚀 Ganhos Estratégicos</h3>
+                                <h3 style="color:var(--accent);margin-bottom:1.5rem;">Ganhos Estratégicos</h3>
                                 <ul style="list-style:none;color:var(--text-muted);display:flex;flex-direction:column;gap:1.5rem;">
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">⚡ +300% Performance</strong> Treinos otimizados por IA aumentam eficiência e resultados rapidamente.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">🧠 Personalização Total</strong> Plano único baseado em experiência, biometria e evolução contínua.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">📊 Inteligência de Movimento</strong> Real-time post-correction para máxima segurança e prevenção de lesões.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">🏆 Gamificação</strong> Rankings, desafios e evolução comparativa para máximo engajamento social.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">+300% Performance</strong> Treinos otimizados por IA aumentam eficiência e resultados rapidamente.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Personalização Total</strong> Plano único baseado em experiência, biometria e evolução contínua.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Inteligência de Movimento</strong> Real-time post-correction para máxima segurança e prevenção de lesões.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Gamificação</strong> Rankings, desafios e evolução comparativa para máximo engajamento social.</li>
                                 </ul>
                             </div>
                             <div>
@@ -706,8 +637,8 @@
                             </div>
                         </div>
                     `;
-                } else if(title === "Móveis Florença") {
-                    content.innerHTML = `
+          } else if (title === "Móveis Florença") {
+            content.innerHTML = `
                         <div class="pre-title">C# // .NET // CRM INTEGRATION</div>
                         <h2 style="font-size:4rem;margin-bottom:2rem;">Móveis Florença</h2>
                         
@@ -745,9 +676,9 @@
                             <div>
                                 <h3 style="color:var(--accent);margin-bottom:1.5rem;">Ganhos Estratégicos</h3>
                                 <ul style="list-style:none;color:var(--text-muted);display:flex;flex-direction:column;gap:1.5rem;">
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">📉 -67% Esforço Operacional</strong> Economia de 10 minutos por formulário, liberando centenas de horas mensais.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">🧠 Inteligência de Vendas</strong> Dados integrados diretamente ao CRM para marketing e pós-venda assertivos.</li>
-                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">✨ Modernização Premium</strong> A retirada do papel eleva a percepção de profissionalismo e tecnologia.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">-67% Esforço Operacional</strong> Economia de 10 minutos por formulário, liberando centenas de horas mensais.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Inteligência de Vendas</strong> Dados integrados diretamente ao CRM para marketing e pós-venda assertivos.</li>
+                                    <li><strong style="color:#fff;display:block;margin-bottom:4px;">Modernização Premium</strong> A retirada do papel eleva a percepção de profissionalismo e tecnologia.</li>
                                 </ul>
                             </div>
                             <div>
@@ -762,8 +693,8 @@
                             </div>
                         </div>
                     `;
-                } else {
-                    content.innerHTML = `
+          } else {
+            content.innerHTML = `
                         <div class="pre-title">${tag}</div>
                         <h2 style="font-size:4rem;margin-bottom:2rem;">${title}</h2>
                         <img src="${media}" style="width:100%;height:400px;object-fit:cover;border-radius:16px;margin-bottom:3rem;border:1px solid var(--border);">
@@ -787,186 +718,39 @@
                             </div>
                         </div>
                     `;
-                }
-                
-                portal.classList.add('active');
-            });
-        });
+          }
 
-        close.addEventListener('click', () => portal.classList.remove('active'));
+          portal.classList.add('active');
+        });
+      });
+
+      close.addEventListener('click', () => portal.classList.remove('active'));
     })();
 
-  /* ── MOBILE MENU TOGGLE ──────────────────────────── */
-  (function(){
-    const mobileBtn=document.getElementById('mobile-btn');
-    const mobileMenu=document.getElementById('mobile-menu');
-    const mobileClose=document.getElementById('mobile-close');
-    if(mobileBtn && mobileMenu) {
+    /* ── MOBILE MENU TOGGLE ──────────────────────────── */
+      const mobileBtn = document.getElementById('mobile-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileClose = document.getElementById('mobile-close');
+      if (mobileBtn && mobileMenu) {
         mobileBtn.addEventListener('click', () => { mobileMenu.classList.add('active'); });
-        mobileClose.addEventListener('click', () => { mobileMenu.classList.remove('active'); });
+        if (mobileClose) mobileClose.addEventListener('click', () => { mobileMenu.classList.remove('active'); });
         const mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('active')));
+      }
     }
-  })();
 
-</script>
+    // Wait for shared components to be injected then init
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => setTimeout(initProjectsPage, 50));
+    } else {
+      setTimeout(initProjectsPage, 50);
+    }
 
-  <!-- START PROJECT MODAL -->
-  <div class="sp-modal" id="sp-modal">
-    <div class="sp-clip-layer" id="sp-clip">
-      <div class="sp-bg-grid"></div>
-    </div>
-    <div class="sp-close" id="sp-close" data-i18n="modal.close">[ ESC ] FECHAR</div>
-    <div class="sp-progress" id="sp-progress"></div>
-    <div class="sp-content">
-        <div class="sp-step active" id="sp-step-1" data-step="1">
-          <div class="sp-label" data-i18n="modal.s1.label">01 // O CONCEITO</div>
-          <h2 class="sp-h2" data-i18n="modal.s1.title">O que vamos construir?</h2>
-          <div class="sp-input-wrap">
-            <input type="text" class="sp-input" id="sp-input-concept" placeholder="Um app fintech, um agente de IA, um SaaS..." data-i18n="modal.s1.ph" autocomplete="off">
-            <div class="sp-line"></div>
-            <button class="sp-input-next" id="sp-next-1" aria-label="Próximo">→</button>
-          </div>
-          <div class="sp-hint" data-i18n="modal.s1.hint">Pressione <strong>Enter ↵</strong> para continuar.</div>
-        </div>
-        <div class="sp-step" id="sp-step-2" data-step="2">
-          <div class="sp-label">02 // ECOSYSTEM</div>
-          <h2 class="sp-h2">Select your platform.</h2>
-          <div class="sp-cards">
-            <div class="sp-select-card">WEB PLATFORM</div>
-            <div class="sp-select-card">MOBILE APP</div>
-            <div class="sp-select-card">AI & AUTOMATION</div>
-            <div class="sp-select-card">FULL STACK (ALL)</div>
-          </div>
-        </div>
-        <div class="sp-step" id="sp-step-3" data-step="3">
-          <div class="sp-label" data-i18n="modal.s3.label">03 // PRAZO</div>
-          <h2 class="sp-h2" data-i18n="modal.s3.title">Quando lançamos?</h2>
-          <div class="sp-cards">
-            <div class="sp-select-card" data-i18n="modal.s3.opt1">O QUANTO ANTES</div>
-            <div class="sp-select-card" data-i18n="modal.s3.opt2">1-3 MESES</div>
-            <div class="sp-select-card" data-i18n="modal.s3.opt3">3-6 MESES</div>
-            <div class="sp-select-card" data-i18n="modal.s3.opt4">FLEXÍVEL</div>
-          </div>
-        </div>
-        <div class="sp-step" id="sp-step-4" data-step="4">
-          <div class="sp-label" data-i18n="modal.s4.label">04 // CONTATO</div>
-          <h2 class="sp-h2" data-i18n="modal.s4.title">Para onde enviamos a proposta?</h2>
-          <div class="sp-input-wrap" style="margin-bottom: 3rem;">
-            <input type="email" class="sp-input" id="sp-input-email" placeholder="email@empresa.com" data-i18n="modal.s4.ph" autocomplete="off">
-            <div class="sp-line"></div>
-          </div>
-          <button class="sp-btn-submit" id="sp-submit" data-i18n="modal.submit">INICIAR SEQUÊNCIA</button>
-        </div>
-        <div class="sp-step" id="sp-success" data-step="5">
-          <div class="sp-launch-dot" id="sp-dot"></div>
-          <div class="sp-msg" id="sp-msg"></div>
-        </div>
-    </div>
-  </div>
-
-  <script>
-    /* ── START PROJECT MODAL JS LOGIC ── */
-    (function(){
-      const modal = document.getElementById('sp-modal');
-      const clip = document.getElementById('sp-clip');
-      const closeBtn = document.getElementById('sp-close');
-      const progress = document.getElementById('sp-progress');
-      const ctaBtns = document.querySelectorAll('[data-modal="start-project"]');
-      let currentStep = 1;
-
-      if(!modal) return;
-
-      ctaBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const rect = btn.getBoundingClientRect();
-          const cx = Math.round((rect.left + rect.width/2) / window.innerWidth * 100);
-          const cy = Math.round((rect.top + rect.height/2) / window.innerHeight * 100);
-          clip.style.setProperty('--cx', cx + '%');
-          clip.style.setProperty('--cy', cy + '%');
-          modal.classList.add('active');
-          setTimeout(() => { modal.classList.add('anim-bg'); }, 50);
-          setTimeout(() => { goToStep(1); }, 600);
-        });
-      });
-
-      const nextBtn1 = document.getElementById('sp-next-1');
-      if(nextBtn1) {
-        nextBtn1.addEventListener('click', () => {
-          if(document.getElementById('sp-input-concept').value.trim() !== '') goToStep(2);
-        });
-      }
-
-      function close() {
-        modal.classList.remove('anim-bg');
-        setTimeout(() => { modal.classList.remove('active'); currentStep = 1; }, 800);
-      }
-      closeBtn.addEventListener('click', close);
-      document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modal.classList.contains('active')) close(); });
-
-      function goToStep(num) {
-        const steps = document.querySelectorAll('.sp-step');
-        steps.forEach(s => { s.classList.remove('fade-in'); setTimeout(()=>s.classList.remove('active'), 300); });
-        setTimeout(() => {
-          const next = document.getElementById(num === 5 ? 'sp-success' : `sp-step-${num}`);
-          if(next) {
-            next.classList.add('active');
-            setTimeout(() => { next.classList.add('fade-in'); }, 50);
-            if(num === 1) document.getElementById('sp-input-concept').focus();
-            if(num === 4) document.getElementById('sp-input-email').focus();
-          }
-        }, 300);
-        progress.style.width = ((num-1)/4)*100 + '%';
-        currentStep = num;
-      }
-
-      document.addEventListener('keydown', (e) => {
-        if(e.key === 'Enter' && modal.classList.contains('active')) {
-          if(currentStep === 1 && document.getElementById('sp-input-concept').value.trim() !== '') {
-            goToStep(2);
-          } else if (currentStep === 4 && document.getElementById('sp-input-email').value.trim() !== '') {
-            launchSequence();
-          }
-        }
-      });
-
-      document.querySelectorAll('.sp-select-card').forEach(card => {
-        card.addEventListener('click', function() {
-          this.style.background = 'rgba(46,196,165,0.2)';
-          this.style.borderColor = 'var(--accent)';
-          setTimeout(() => { goToStep(currentStep + 1); }, 300);
-        });
-      });
-
-      const submitBtn = document.getElementById('sp-submit');
-      if(submitBtn) submitBtn.addEventListener('click', launchSequence);
-
-      function launchSequence() {
-        goToStep(5);
-        progress.style.width = '100%';
-        const dot = document.getElementById('sp-dot');
-        const msg = document.getElementById('sp-msg');
-        setTimeout(() => {
-          dot.style.opacity = '1';
-          dot.style.transition = 'transform 1s cubic-bezier(0.5, 0, 0.2, 1)';
-          dot.style.transform = 'translateY(-600px) scale(0.2)';
-        }, 800);
-        setTimeout(() => {
-          msg.style.opacity = '1';
-          typeWriter(msg, "[ STATUS: BRIEF SECURED. OUR ENGINEERS ARE ANALYZING. ]", 0);
-        }, 1800);
-        setTimeout(close, 5000);
-      }
-
-      function typeWriter(el, txt, i) {
-        if(i === 0) el.innerHTML = '';
-        if (i < txt.length) {
-          el.innerHTML += txt.charAt(i);
-          setTimeout(() => typeWriter(el, txt, i + 1), 40);
-        }
-      }
-    })();
   </script>
+
+<footer id="shared-footer"></footer>
+
+
 </body>
+
 </html>

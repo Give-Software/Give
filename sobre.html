@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,61 +7,13 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="shared-components.js"></script>
   <script src="lang.js"></script>
   <link rel="stylesheet" href="styles/sobre.css">
 </head><body>
-<!-- Full page progress -->
-<div id="page-progress"></div>
+<header id="shared-header" data-active="about"></header>
 
-<!-- Cursor elements -->
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
-
-<!-- NAV -->
-<nav id="main-nav">
-  <a class="nav-logo" href="index.html">
-    <svg width="32" height="28" viewBox="0 0 100 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon class="logo-poly logo-poly-1" points="0,80 30,10 50,50" fill="#2d3d4f"/>
-      <polygon class="logo-poly logo-poly-2" points="100,80 70,10 50,50" fill="#2d3d4f"/>
-      <polygon class="logo-poly logo-poly-1" points="30,10 50,50 50,80" fill="#233040"/>
-      <polygon class="logo-poly logo-poly-2" points="70,10 50,50 50,80" fill="#233040"/>
-      <polygon class="logo-poly logo-poly-center" points="50,0 62,36 50,50 38,36" fill="#2ec4a5"/>
-      <polygon class="logo-poly logo-poly-center" points="50,50 60,68 50,80 40,68" fill="#1a9982"/>
-    </svg>
-    <span>GIVE <span style="color:var(--accent)">SOFTWARE</span></span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html" data-i18n="nav.home">Início</a></li>
-    <li><a href="projetos.html" data-i18n="nav.projects">Projetos</a></li>
-    <li><a href="servicos.html" data-i18n="nav.services">Serviços</a></li>
-    <li><a href="sobre.html" class="active" data-i18n="nav.about">Sobre nós</a></li>
-  </ul>
-  <div class="nav-right">
-    <button class="lang-toggle" id="lang-toggle" data-lang="pt" onclick="toggleLang()">
-      <span class="lt-dot"></span>
-      <span class="lt-pt">PT</span>
-      <span class="lt-sep">|</span>
-      <span class="lt-en">EN</span>
-    </button>
-    <a class="nav-cta" href="#cta" data-i18n="nav.cta" data-modal="start-project">Iniciar Projeto</a>
-    <div class="mobile-menu-btn" id="mobile-btn">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-</nav>
-
-<!-- Mobile Menu Overlay -->
-<div class="mobile-menu-overlay" id="mobile-menu">
-  <div class="mobile-menu-close" id="mobile-close">&times;</div>
-  <ul class="mobile-nav-links">
-    <li><a href="index.html">Início</a></li>
-    <li><a href="projetos.html">Projetos</a></li>
-    <li><a href="servicos.html">Serviços</a></li>
-    <li><a href="sobre.html" class="active">Sobre nós</a></li>
-  </ul>
-  <a class="nav-cta" href="#cta" style="margin-top:3rem;" data-i18n="nav.cta" data-modal="start-project">Iniciar Projeto</a>
-</div>
 
 <!-- About Hero -->
 <section class="p-hero">
@@ -150,10 +102,10 @@
 </section>
 
 <!-- Differentiators Orbital Concept -->
-<!-- <section class="section">
+<section class="section">
   <div class="section-header reveal">
-    <div class="pre-title">Why Give?</div>
-    <h2 class="section-title">The Give Protocol</h2>
+    <div class="pre-title" data-i18n="sobre.protocol.pre">Why Give?</div>
+    <h2 class="section-title" data-i18n="sobre.protocol.title">O Protocolo Give</h2>
   </div>
 
   <div class="orbital-universe reveal">
@@ -166,8 +118,8 @@
         <div class="op-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
-        <h3 class="op-title">Lightning Speed</h3>
-        <p class="op-desc">We ship faster than internal teams by using modular architectures and automated CI/CD pipelines.</p>
+        <h3 class="op-title" data-i18n="sobre.diff1.title">Velocidade Real</h3>
+        <p class="op-desc" data-i18n="sobre.diff1.desc">Entregamos mais rápido que equipes internas, usando arquiteturas modulares e pipelines CI/CD automatizados.</p>
       </div>
     </div>
 
@@ -176,8 +128,8 @@
         <div class="op-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
         </div>
-        <h3 class="op-title">Global Standards</h3>
-        <p class="op-desc">Codebases built following the exact same rigorous standards as FAANG companies.</p>
+        <h3 class="op-title" data-i18n="sobre.diff2.title">Padrão Global</h3>
+        <p class="op-desc" data-i18n="sobre.diff2.desc">Código construído seguindo os mesmos padrões rigorosos de empresas de tecnologia de ponta.</p>
       </div>
     </div>
 
@@ -186,34 +138,34 @@
         <div class="op-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
-        <h3 class="op-title">Zero Friction</h3>
-        <p class="op-desc">Complete transparency. You speak directly directly with the senior engineers building your product.</p>
+        <h3 class="op-title" data-i18n="sobre.diff3.title">Zero Fricção</h3>
+        <p class="op-desc" data-i18n="sobre.diff3.desc">Transparência total. Você fala diretamente com os engenheiros seniores que constroem seu produto.</p>
       </div>
       
       <div class="ou-planet p-4 interactive">
         <div class="op-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         </div>
-        <h3 class="op-title">Design Obsession</h3>
-        <p class="op-desc">We don't just write logic; we sculpt award-winning UI/UX that drives maximum engagement.</p>
+        <h3 class="op-title" data-i18n="sobre.diff4.title">Obcessão pelo Design</h3>
+        <p class="op-desc" data-i18n="sobre.diff4.desc">Não apenas escrevemos lógica; esculpimos interfaces UI/UX premium que geram máximo engajamento.</p>
       </div>
     </div>
   </div>
-</section> -->
+</section>
 
 <!-- The Team Section -->
-<!-- <section class="section">
+<section class="section">
   <div class="section-header reveal">
-    <div class="pre-title">The Brains</div>
-    <h2 class="section-title">Meet the Core Unit</h2>
+    <div class="pre-title" data-i18n="sobre.team.pre">Os Cérebros</div>
+    <h2 class="section-title" data-i18n="sobre.team.title">Conheça a Equipe</h2>
   </div>
 
   <div class="team-grid">
     <div class="team-card reveal interactive">
-      <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=600&h=800" alt="CEO">
+      <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=600&h=800" alt="Eduardo">
       <div class="team-info">
-        <h3 class="team-name">Arthur Pendragon</h3>
-        <span class="team-role">Head of Engineering / CEO</span>
+        <h3 class="team-name" data-i18n="sobre.team1.name">Eduardo</h3>
+        <span class="team-role" data-i18n="sobre.team1.role">Head de Automação & IA</span>
         <div class="team-social">
           <a href="#" class="ts-icon">IN</a>
           <a href="#" class="ts-icon">GH</a>
@@ -222,10 +174,10 @@
     </div>
 
     <div class="team-card reveal delay-1 interactive">
-      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600&h=800" alt="Lead Designer">
+      <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600&h=800" alt="Victor">
       <div class="team-info">
-        <h3 class="team-name">Morgana Le Fay</h3>
-        <span class="team-role">VP of Product Design</span>
+        <h3 class="team-name" data-i18n="sobre.team2.name">Victor</h3>
+        <span class="team-role" data-i18n="sobre.team2.role">Head de Mobile & UX</span>
         <div class="team-social">
           <a href="#" class="ts-icon">IN</a>
           <a href="#" class="ts-icon">BE</a>
@@ -234,10 +186,10 @@
     </div>
 
     <div class="team-card reveal delay-2 interactive">
-      <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600&h=800" alt="Lead Tech">
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600&h=800" alt="Guilherme">
       <div class="team-info">
-        <h3 class="team-name">Lancelot Du Lac</h3>
-        <span class="team-role">Principal Architect AI</span>
+        <h3 class="team-name" data-i18n="sobre.team3.name">Guilherme</h3>
+        <span class="team-role" data-i18n="sobre.team3.role">Head de Web & Backend</span>
         <div class="team-social">
           <a href="#" class="ts-icon">IN</a>
           <a href="#" class="ts-icon">GH</a>
@@ -245,7 +197,7 @@
       </div>
     </div>
   </div>
-</section> -->
+</section>
 
 <!-- Final CTA Section (Mission Control) -->
 <!-- <section class="cta-section section" id="cta">
@@ -311,121 +263,23 @@
   </div>
 </section> -->
 
-<!-- Footer -->
-<footer>
-  <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:.5rem;">
-    <svg width="36" height="30" viewBox="0 0 100 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="0,80 30,10 50,50" fill="#2d3d4f"/>
-      <polygon points="100,80 70,10 50,50" fill="#2d3d4f"/>
-      <polygon points="30,10 50,50 50,80" fill="#233040"/>
-      <polygon points="70,10 50,50 50,80" fill="#233040"/>
-      <polygon points="50,0 62,36 50,50 38,36" fill="#2ec4a5"/>
-      <polygon points="50,50 60,68 50,80 40,68" fill="#1a9982"/>
-    </svg>
-    <div class="footer-wordmark interactive" style="margin-bottom:0px;">GIVE <span style="color:var(--accent)">SOFTWARE</span></div>
-  </div>
-  <p data-i18n="footer.desc">Construímos todo tipo de solução. Web. Mobile. Automação. Tudo.</p>
-  <div style="margin: 2rem 0; display: flex; gap: 2rem; justify-content: center;">
-    <a href="#" class="interactive" style="color:var(--accent)">Twitter</a>
-    <a href="#" class="interactive" style="color:var(--accent)">LinkedIn</a>
-    <a href="#" class="interactive" style="color:var(--accent)">GitHub</a>
-  </div>
-  <p style="font-size: 0.85rem; font-family: monospace;" data-i18n="footer.copy">© 2026 Give Software. Construído com propósito.</p>
-</footer>
-
-  <!-- START PROJECT MODAL -->
-  <div class="sp-modal" id="sp-modal">
-    <!-- Decorative clip layer (background only) -->
-    <div class="sp-clip-layer" id="sp-clip">
-      <div class="sp-bg-grid"></div>
-    </div>
-    <!-- UI Controls -->
-    <div class="sp-close" id="sp-close" data-i18n="modal.close">[ ESC ] FECHAR</div>
-    <div class="sp-progress" id="sp-progress"></div>
-    <!-- Form Content -->
-    <div class="sp-content">
-        <!-- Step 1 -->
-        <div class="sp-step active" id="sp-step-1" data-step="1">
-          <div class="sp-label" data-i18n="modal.s1.label">01 // O CONCEITO</div>
-          <h2 class="sp-h2" data-i18n="modal.s1.title">O que vamos construir?</h2>
-          <div class="sp-input-wrap">
-            <input type="text" class="sp-input" id="sp-input-concept" placeholder="Um app fintech, um agente de IA, um SaaS..." data-i18n="modal.s1.ph" autocomplete="off">
-            <div class="sp-line"></div>
-            <button class="sp-input-next" id="sp-next-1" aria-label="Próximo">→</button>
-          </div>
-          <div class="sp-hint" data-i18n="modal.s1.hint">Pressione <strong>Enter ↵</strong> para continuar.</div>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="sp-step" id="sp-step-2" data-step="2">
-          <div class="sp-label">02 // ECOSYSTEM</div>
-          <h2 class="sp-h2">Select your platform.</h2>
-          <div class="sp-cards">
-            <div class="sp-select-card">WEB PLATFORM</div>
-            <div class="sp-select-card">MOBILE APP</div>
-            <div class="sp-select-card">AI & AUTOMATION</div>
-            <div class="sp-select-card">FULL STACK (ALL)</div>
-          </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="sp-step" id="sp-step-3" data-step="3">
-          <div class="sp-label" data-i18n="modal.s3.label">03 // PRAZO</div>
-          <h2 class="sp-h2" data-i18n="modal.s3.title">Quando lançamos?</h2>
-          <div class="sp-cards">
-            <div class="sp-select-card" data-i18n="modal.s3.opt1">O QUANTO ANTES</div>
-            <div class="sp-select-card" data-i18n="modal.s3.opt2">1-3 MESES</div>
-            <div class="sp-select-card" data-i18n="modal.s3.opt3">3-6 MESES</div>
-            <div class="sp-select-card" data-i18n="modal.s3.opt4">FLEXÍVEL</div>
-          </div>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="sp-step" id="sp-step-4" data-step="4">
-          <div class="sp-label" data-i18n="modal.s4.label">04 // CONTATO</div>
-          <h2 class="sp-h2" data-i18n="modal.s4.title">Para onde enviamos a proposta?</h2>
-          <div class="sp-input-wrap" style="margin-bottom: 3rem;">
-            <input type="email" class="sp-input" id="sp-input-email" placeholder="email@empresa.com" data-i18n="modal.s4.ph" autocomplete="off">
-            <div class="sp-line"></div>
-          </div>
-          <button class="sp-btn-submit" id="sp-submit" data-i18n="modal.submit">INICIAR SEQUÊNCIA</button>
-        </div>
-
-        <!-- Success -->
-        <div class="sp-step" id="sp-success" data-step="5">
-          <div class="sp-launch-dot" id="sp-dot"></div>
-          <div class="sp-msg" id="sp-msg"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+<footer id="shared-footer"></footer>
 
 <script>
-  /* Custom Cursor */
-  (function(){
-    const dot=document.getElementById('cursor-dot');
-    const ring=document.getElementById('cursor-ring');
-    let rx=0,ry=0;
-    window.addEventListener('mousemove',e=>{
-      dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px';
-      rx+=(e.clientX-rx)*.12; ry+=(e.clientY-ry)*.12;
-      ring.style.left=rx+'px'; ring.style.top=ry+'px';
-    });
-    function lerp(){
-      rx+=(parseFloat(dot.style.left||0)-rx)*.12;
-      ry+=(parseFloat(dot.style.top||0)-ry)*.12;
-      ring.style.left=rx+'px'; ring.style.top=ry+'px';
-      requestAnimationFrame(lerp);
-    }
-    lerp();
-  })();
-
   /* Nav Scroll & Reveal */
   (function(){
     const nav=document.getElementById('main-nav');
     const reveals=document.querySelectorAll('.reveal');
+    const pageProgress=document.getElementById('page-progress');
+
     window.addEventListener('scroll',()=>{
-      nav.classList.toggle('scrolled',window.scrollY>60);
+      if(nav) nav.classList.toggle('scrolled',window.scrollY>60);
+      
+      // Scroll Progress
+      const s=document.documentElement;
+      const prog=s.scrollTop/(s.scrollHeight-s.clientHeight);
+      if(pageProgress) pageProgress.style.width=(prog*100)+'%';
+
       const wh=window.innerHeight;
       reveals.forEach(el=>{
         const top=el.getBoundingClientRect().top;
@@ -436,8 +290,7 @@
     setTimeout(()=>window.dispatchEvent(new Event('scroll')),100);
   })();
 
-  /* Timeline Scroll Logic - Fixed for smooth growth and reaching the last card */
-  /* Timeline Scroll Logic - Fixed for smooth growth and reaching the last card */
+  /* Timeline Scroll Logic */
   (function(){
     const timelineFill = document.getElementById('timeline-fill');
     const milestones = document.querySelectorAll('.milestone');
@@ -452,17 +305,14 @@
       const firstNodeY = firstM.offsetTop + firstM.offsetHeight / 2;
       const lastNodeY = lastM.offsetTop + lastM.offsetHeight / 2;
       
-      // We set the start position (top) to the center of the first node
       timelineFill.style.top = firstNodeY + 'px';
 
-      // Update active states
       milestones.forEach((m) => {
         const nodeY = m.offsetTop + m.offsetHeight / 2;
         if(scrollPos >= nodeY - 10) m.classList.add('active');
         else m.classList.remove('active');
       });
       
-      // Calculate filled distance relative to first node
       let h = 0;
       if (scrollPos >= firstNodeY) {
          h = Math.min(scrollPos - firstNodeY, lastNodeY - firstNodeY);
@@ -490,242 +340,22 @@
     });
   })();
 
-  /* Nav & Reveal & Scroll Progress */
+  /* Mobile Menu Toggle */
   (function(){
-    const nav=document.getElementById('main-nav');
-    const reveals=document.querySelectorAll('.reveal');
-    const pageProgress=document.getElementById('page-progress');
-
-    window.addEventListener('scroll',()=>{
-      nav.classList.toggle('scrolled',window.scrollY>60);
-      
-      // Scroll Progress
-      const s=document.documentElement;
-      const prog=s.scrollTop/(s.scrollHeight-s.clientHeight);
-      if(pageProgress) pageProgress.style.width=(prog*100)+'%';
-
-      const wh=window.innerHeight;
-      reveals.forEach(el=>{
-        const top=el.getBoundingClientRect().top;
-        if(top<wh-100) el.classList.add('active');
-      });
-    },{passive:true});
-    setTimeout(()=>window.dispatchEvent(new Event('scroll')),100);
-  })();
-
-  /* Constellation Canvas Hero */
-  (function(){
-    const canvas = document.getElementById('hero-constellation');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-    const MAX_PARTICLES = 100;
-    const CONNECT_DISTANCE = 150;
-    
-    let mouse = { x: -1000, y: -1000 };
-
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    });
-    
-    window.addEventListener('mouseout', () => {
-      mouse.x = -1000; mouse.y = -1000;
-    });
-
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
+    const mobileBtn = document.getElementById('mobile-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileClose = document.getElementById('mobile-close');
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => { mobileMenu.classList.add('active'); });
+      if (mobileClose) mobileClose.addEventListener('click', () => { mobileMenu.classList.remove('active'); });
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('active')));
     }
-    
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 1.5;
-        this.vy = (Math.random() - 0.5) * 1.5;
-        this.size = Math.random() * 2 + 1;
-      }
-      
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        
-        if(this.x < 0 || this.x > width) this.vx *= -1;
-        if(this.y < 0 || this.y > height) this.vy *= -1;
-        
-        // Repel from mouse slightly
-        let dx = this.x - mouse.x;
-        let dy = this.y - mouse.y;
-        let dist = Math.sqrt(dx*dx + dy*dy);
-        if(dist < 100) {
-          this.x += dx * 0.05;
-          this.y += dy * 0.05;
-        }
-      }
-      
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(46, 196, 165, 0.6)';
-        ctx.fill();
-      }
-    }
-
-    for(let i=0; i<MAX_PARTICLES; i++) {
-      particles.push(new Particle());
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      
-      for(let i=0; i<particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
-        
-        for(let j=i+1; j<particles.length; j++) {
-          let dx = particles[i].x - particles[j].x;
-          let dy = particles[i].y - particles[j].y;
-          let dist = Math.sqrt(dx*dx + dy*dy);
-          
-          if(dist < CONNECT_DISTANCE) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            let alpha = 1 - (dist / CONNECT_DISTANCE);
-            ctx.strokeStyle = `rgba(46, 196, 165, ${alpha * 0.3})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        }
-      }
-      
-      requestAnimationFrame(animate);
-    }
-    animate();
   })();
 
 
 
-  /* ── START PROJECT MODAL JS LOGIC ── */
-  (function(){
-    const modal = document.getElementById('sp-modal');
-    if(!modal) return;
-    const clip = document.getElementById('sp-clip');
-    const closeBtn = document.getElementById('sp-close');
-    const progress = document.getElementById('sp-progress');
-    const ctaBtns = document.querySelectorAll('[data-modal="start-project"]');
-    let currentStep = 1;
 
-    // Open Modal
-    ctaBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const rect = btn.getBoundingClientRect();
-        const cx = Math.round((rect.left + rect.width/2) / window.innerWidth * 100);
-        const cy = Math.round((rect.top + rect.height/2) / window.innerHeight * 100);
-        
-        clip.style.setProperty('--cx', cx + '%');
-        clip.style.setProperty('--cy', cy + '%');
-        
-        modal.classList.add('active');
-        
-        setTimeout(() => { modal.classList.add('anim-bg'); }, 50);
-        setTimeout(() => { goToStep(1); }, 600);
-      });
-    });
-
-    const nextBtn1 = document.getElementById('sp-next-1');
-    if(nextBtn1) {
-      nextBtn1.addEventListener('click', () => {
-        if(document.getElementById('sp-input-concept').value.trim() !== '') goToStep(2);
-      });
-    }
-
-    function close() {
-      modal.classList.remove('anim-bg');
-      setTimeout(() => { modal.classList.remove('active'); currentStep = 1; }, 800);
-    }
-    
-    closeBtn.addEventListener('click', close);
-    document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modal.classList.contains('active')) close(); });
-
-    // Step Navigation
-    function goToStep(num) {
-      const steps = document.querySelectorAll('.sp-step');
-      steps.forEach(s => { s.classList.remove('fade-in'); setTimeout(()=>s.classList.remove('active'), 300); });
-      setTimeout(() => {
-        const next = document.getElementById(num === 5 ? 'sp-success' : `sp-step-${num}`);
-        if(next) {
-          next.classList.add('active');
-          setTimeout(() => { next.classList.add('fade-in'); }, 50);
-          if(num === 1) document.getElementById('sp-input-concept').focus();
-          if(num === 4) document.getElementById('sp-input-email').focus();
-        }
-      }, 300);
-      progress.style.width = ((num-1)/4)*100 + '%';
-      currentStep = num;
-    }
-
-    // Enter Key
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' && modal.classList.contains('active')) {
-        if(currentStep === 1 && document.getElementById('sp-input-concept').value.trim() !== '') {
-          goToStep(2);
-        } else if (currentStep === 4 && document.getElementById('sp-input-email').value.trim() !== '') {
-          launchSequence();
-        }
-      }
-    });
-
-    // Card Selection
-    document.querySelectorAll('.sp-select-card').forEach(card => {
-      card.addEventListener('click', function() {
-        this.style.background = 'rgba(46,196,165,0.2)';
-        this.style.borderColor = 'var(--accent)';
-        setTimeout(() => { goToStep(currentStep + 1); }, 300);
-      });
-    });
-
-    // Submit Sequence
-    const submitBtn = document.getElementById('sp-submit');
-    if(submitBtn) {
-      submitBtn.addEventListener('click', launchSequence);
-    }
-
-    function launchSequence() {
-      goToStep(5);
-      progress.style.width = '100%';
-      const dot = document.getElementById('sp-dot');
-      const msg = document.getElementById('sp-msg');
-      
-      setTimeout(() => {
-        dot.style.opacity = '1';
-        dot.style.transition = 'transform 1s cubic-bezier(0.5, 0, 0.2, 1)';
-        dot.style.transform = 'translateY(-600px) scale(0.2)';
-      }, 800);
-
-      setTimeout(() => {
-        msg.style.opacity = '1';
-        typeWriter(msg, "[ STATUS: BRIEF SECURED. OUR ENGINEERS ARE ANALYZING. ]", 0);
-      }, 1800);
-
-      setTimeout(close, 5000);
-    }
-
-      function typeWriter(el, txt, i) {
-        if(i === 0) el.innerHTML = '';
-        if (i < txt.length) {
-          el.innerHTML += txt.charAt(i);
-          setTimeout(() => typeWriter(el, txt, i + 1), 40);
-        }
-      }
-    })();
 </script>
 
 </body>
