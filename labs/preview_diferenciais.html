@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIVE // MEGA LAB - 20 DESIGNS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Plus+Jakarta+Sans:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050709;
+            --accent: #2ec4a5;
+            --accent-glow: rgba(46, 196, 165, 0.4);
+            --border: rgba(255, 255, 255, 0.08);
+            --font-display: 'Chakra Petch', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        body {
+            margin: 0; background: var(--bg); color: #fff;
+            font-family: var(--font-body); overflow: hidden; height: 100vh;
+            display: flex; flex-direction: column;
+        }
+
+        /* UI DO LAB */
+        .lab-ui {
+            padding: 1rem 1.5rem; background: #000; border-bottom: 1px solid var(--border);
+            display: flex; flex-direction: column; gap: 1rem; z-index: 1000;
+        }
+        .lab-header { display: flex; justify-content: space-between; align-items: center; }
+        .lab-title { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.3em; }
+        
+        .lab-grid-nav {
+            display: grid; grid-template-columns: repeat(10, 1fr); gap: 0.5rem;
+        }
+        .btn-design {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            color: #666; font-family: var(--font-mono); font-size: 0.65rem;
+            padding: 0.5rem; cursor: pointer; transition: all 0.2s; text-align: center;
+        }
+        .btn-design:hover { border-color: var(--accent); color: #fff; }
+        .btn-design.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: bold; }
+
+        .lab-stage { flex: 1; position: relative; overflow: hidden; background: #000; }
+        .concept-view {
+            position: absolute; inset: 0; display: none;
+            align-items: center; justify-content: center; padding: 4rem;
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .concept-view.active { display: flex; opacity: 1; }
+
+        /* REUTILIZÁVEIS E HELPERS */
+        .grid-2x2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 1000px; width: 100%; }
+        .tag { font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent); border: 1px solid var(--accent-glow); padding: 2px 6px; border-radius: 4px; margin-bottom: 1rem; display: inline-block; }
+        
+        /* 1. BLUEPRINT (V1 UPDATED) */
+        .card-blueprint { border: 1px solid var(--border); padding: 2rem; background: rgba(255,255,255,0.01); transition: 0.3s; position: relative; }
+        .card-blueprint:hover { border-color: var(--accent); background: rgba(46,196,165,0.03); transform: translateY(-5px); }
+        .card-blueprint::after { content:''; position:absolute; bottom:10px; right:10px; width:15px; height:15px; border-bottom:1px solid var(--accent); border-right:1px solid var(--accent); }
+
+        /* 3. CYBER TERMINAL (V1 UPDATED) */
+        .term-box { width: 100%; max-width: 700px; padding: 2rem; border: 1px solid var(--accent-glow); background: rgba(0,0,0,0.9); font-family: var(--font-mono); }
+        .term-line { margin-bottom: 1.5rem; display: flex; gap: 1rem; opacity: 0.6; transition: 0.3s; }
+        .term-line:hover { opacity: 1; color: var(--accent); }
+
+        /* 4. MAGNETIC BENTO */
+        .bento-grid { display: grid; grid-template-columns: 1.5fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; width: 900px; height: 500px; }
+        .bento-item { background: #111; border: 1px solid var(--border); border-radius: 20px; padding: 2rem; transition: 0.3s; cursor: pointer; }
+        .bento-item:hover { border-color: var(--accent); transform: scale(1.02); box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .bento-item:nth-child(1) { grid-row: span 2; }
+
+        /* 5. AURORA GLASS */
+        .aurora-bg { position: absolute; inset: 0; filter: blur(100px); z-index: -1; }
+        .aurora-blob { position: absolute; width: 400px; height: 400px; border-radius: 50%; opacity: 0.2; animation: float 10s infinite alternate; }
+        .glass-card { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 3rem; border-radius: 30px; }
+
+        /* 7. NEURAL NODES (CANVAS EMULATED) */
+        .neural-svg { position: absolute; inset: 0; z-index: 0; opacity: 0.3; }
+
+        /* 10. HOLOGRAPHIC SCANNER */
+        .scanner-line { position: absolute; left: 0; top: 0; width: 100%; height: 5px; background: var(--accent); box-shadow: 0 0 20px var(--accent); animation: scan 3s infinite linear; pointer-events: none; }
+        @keyframes scan { 0% { top: -10%; } 100% { top: 110%; } }
+
+        /* 12. DNA HELIX */
+        .helix-item { transform-style: preserve-3d; animation: rotateHelix 10s linear infinite; }
+        @keyframes rotateHelix { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+
+        /* 19. CODE EDITOR */
+        .code-window { width: 600px; background: #0d1117; border-radius: 8px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.5); }
+        .code-header { background: #161b22; padding: 10px; display: flex; gap: 6px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+
+        @keyframes float { from { transform: translate(0, 0); } to { transform: translate(100px, 50px); } }
+        
+        h3 { font-family: var(--font-display); margin: 0 0 1rem 0; font-size: 1.4rem; }
+        p { margin: 0; font-size: 0.85rem; color: #aaa; line-height: 1.5; }
+
+    </style>
+</head>
+<body>
+
+    <div class="lab-ui">
+        <div class="lab-header">
+            <div class="lab-title">ENGINE_LAB // SELECT_DESIGN_VARIANT [1-20]</div>
+            <div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--text-muted)">v2.0 // STABLE_BUILD</div>
+        </div>
+        <div class="lab-grid-nav" id="lab-nav">
+            <!-- Buttons will be generated here -->
+        </div>
+    </div>
+
+    <main class="lab-stage" id="stage">
+        <!-- Vies will be injected by JS -->
+    </main>
+
+    <script>
+        const designs = [
+            { name: "Blueprint", cat: "Brutalist", content: `
+                <div class="grid-2x2">
+                    <div class="card-blueprint"><span class="tag">ENG_01</span><h3>Velocidade</h3><p>Arquitetura modular para escala recorde.</p></div>
+                    <div class="card-blueprint"><span class="tag">ENG_02</span><h3>Padrão Global</h3><p>Elite tech standards em cada linha.</p></div>
+                    <div class="card-blueprint"><span class="tag">ENG_03</span><h3>Fricção Zero</h3><p>Acesso direto aos engenheiros seniores.</p></div>
+                    <div class="card-blueprint"><span class="tag">ENG_04</span><h3>Design Obsessão</h3><p>UX esculpida para retenção extrema.</p></div>
+                </div>` },
+            { name: "3D Hub", cat: "Futurist", content: `
+                <div style="perspective:1000px">
+                    <div style="width:300px; height:300px; background:var(--accent); border-radius:50%; box-shadow:0 0 100px var(--accent-glow); display:flex; align-items:center; justify-content:center; color:#000; font-weight:bold; font-family:var(--font-display); transform:rotateX(20deg) rotateY(-10deg)">GIVE_PROTOCOL</div>
+                </div>` },
+            { name: "Terminal", cat: "Hacker", content: `
+                <div class="term-box">
+                    <div class="term-line">> VELOCIDADE: MODULAR_DEPLOY_FAST</div>
+                    <div class="term-line">> PADRÃO: CLEAN_CODE_STRICT</div>
+                    <div class="term-line">> CONEXÃO: DIRECT_LINK_ACTIVE</div>
+                    <div class="term-line">> VISUAL: PIXEL_PERFECT_INTERFACE</div>
+                </div>` },
+            { name: "Bento Grid", cat: "Minimalist", content: `
+                <div class="bento-grid">
+                    <div class="bento-item"><h3>Velocidade Real</h3><p>Entregamos mais rápido com CI/CD.</p></div>
+                    <div class="bento-item"><h3>Padrão Global</h3><p>Rigorous tech assessment.</p></div>
+                    <div class="bento-item"><h3>Zero Fricção</h3><p>Engenharia direta.</p></div>
+                    <div class="bento-item"><h3>Design-First</h3><p>Interfaces premium.</p></div>
+                </div>` },
+            { name: "Aurora Glass", cat: "Luxury", content: `
+                <div class="aurora-bg">
+                    <div class="aurora-blob" style="background:#2ec4a5; left:20%; top:20%"></div>
+                    <div class="aurora-blob" style="background:#3ddbb8; right:10%; bottom:10%"></div>
+                </div>
+                <div class="glass-card" style="width:600px">
+                    <h3 style="font-size:3rem">O Protocolo Give</h3>
+                    <p>Elegância tecnológica em cada detalhe da execução.</p>
+                </div>` },
+            { name: "Isometric", cat: "Isometric", content: `
+                <div style="display:flex; gap:2rem; transform:rotateX(45deg) rotateZ(-45deg)">
+                    <div style="width:150px; height:150px; background:var(--accent-glow); border:2px solid var(--accent); border-bottom:10px solid var(--accent)"></div>
+                    <div style="width:150px; height:150px; background:var(--accent-glow); border:2px solid var(--accent); border-bottom:10px solid var(--accent)"></div>
+                </div>` },
+            { name: "Neural Node", cat: "Data", content: `
+                <svg class="neural-svg" width="100%" height="100%"><circle cx="40%" cy="40%" r="4" fill="var(--accent)"><animate attributeName="r" values="4;8;4" dur="2s" repeatCount="indefinite"/></circle><line x1="10%" y1="10%" x2="40%" y2="40%" stroke="var(--accent)" stroke-width="0.5"/></svg>
+                <h3 style="z-index:10; position:relative">Network of Excellence</h3>` },
+            { name: "Stacked Stack", cat: "Motion", content: `
+                <div style="display:flex; flex-direction:column; gap:-2rem; align-items:center">
+                    <div class="bento-item" style="width:500px; transform:translateY(0)">Card 1</div>
+                    <div class="bento-item" style="width:500px; transform:translateY(-50px) scale(0.95); opacity:0.8">Card 2</div>
+                    <div class="bento-item" style="width:500px; transform:translateY(-100px) scale(0.90); opacity:0.6">Card 3</div>
+                </div>` },
+            { name: "Kinetic Typo", cat: "Typography", content: `
+                <h1 style="font-size:8rem; font-family:var(--font-display); line-height:0.8; opacity:0.1; position:absolute">DESIGN DESIGN</h1>
+                <h3 style="font-size:4rem; text-align:center">Obsessão pelo<br><span style="color:var(--accent)">Pixel</span></h3>` },
+            { name: "Scanner", cat: "Cyber", content: `
+                <div class="scanner-line"></div>
+                <div style="display:flex; gap:2rem">
+                    <div class="card-blueprint">Scanning Unit 01</div>
+                    <div class="card-blueprint">Scanning Unit 02</div>
+                </div>` },
+            { name: "DNA Helix", cat: "Bio-Tech", content: `
+                <div class="helix-item">
+                    <div style="width:200px; height:400px; border-left:2px dashed var(--accent); border-right:2px dashed var(--accent)"></div>
+                    <h3 style="text-align:center">DNA da Give</h3>
+                </div>` },
+            { name: "Code Editor", cat: "Dev", content: `
+                <div class="code-window">
+                    <div class="code-header"><div class="dot" style="background:#ff5f56"></div><div class="dot" style="background:#ffbd2e"></div><div class="dot" style="background:#27c93f"></div></div>
+                    <div style="padding:2rem; color:#f8f8f2; font-family:var(--font-mono)">
+                        <span style="color:#ff79c6">function</span> deployExperience() {<br>
+                        &nbsp;&nbsp;<span style="color:#50fa7b">const</span> giveDNA = [<span style="color:#f1fa8c">'Speed'</span>, <span style="color:#f1fa8c">'Design'</span>];<br>
+                        &nbsp;&nbsp;<span style="color:#6272a4">// Building amazing products...</span><br>
+                        }
+                    </div>
+                </div>` },
+            { name: "Prism Glass", cat: "Optical", content: `
+                <div style="width:300px; height:200px; background:linear-gradient(45deg, var(--accent), transparent); clip-path: polygon(50% 0%, 100% 100%, 0% 100%); filter:blur(2px)"></div>
+                <h3>Diferenciação via Prisma</h3>` },
+            { name: "Neumorphic", cat: "UI", content: `
+                <div style="width:200px; height:200px; background:#080a0c; border-radius:40px; box-shadow: 10px 10px 20px #030405, -10px -10px 20px #0d1013; display:flex; align-items:center; justify-content:center; color:var(--accent)">GIVE</div>` },
+            { name: "Liquid Morph", cat: "Art", content: `
+                <div style="width:200px; height:200px; background:var(--accent); border-radius:60% 40% 30% 70% / 60% 30% 70% 40%; animation: morph 4s ease-in-out infinite"></div>
+                <style>@keyframes morph { 0%, 100% { border-radius: 60% 40% 30% 70%/60% 30% 70% 40%; } 50% { border-radius: 30% 60% 70% 40%/50% 60% 30% 60%; } }</style>` },
+            { name: "Pulse Grid", cat: "Motion", content: `
+                <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:1rem">
+                    <div style="width:20px; height:20px; background:var(--accent); border-radius:50%; opacity:0.1"></div>
+                    <div style="width:20px; height:20px; background:var(--accent); border-radius:50%; box-shadow:0 0 20px var(--accent); opacity:1"></div>
+                </div>` },
+            { name: "Hex Hive", cat: "Shape", content: `
+                <div style="width:100px; height:115px; background:var(--accent-glow); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)"></div>` },
+            { name: "Data Stream", cat: "Data", content: `
+                <div style="height:300px; width:2px; background:linear-gradient(to bottom, transparent, var(--accent), transparent); border-radius:1px"></div>
+                <h2 style="font-family:var(--font-mono)">STREAMING_CAPACITY</h2>` },
+            { name: "Split Reveal", cat: "UI", content: `
+                <div style="display:flex; width:800px; height:400px; border:1px solid var(--border)">
+                    <div style="flex:1; border-right:1px solid var(--border); padding:2rem">Lançamento</div>
+                    <div style="flex:1; background:var(--accent); color:#000; padding:2rem">Execução</div>
+                </div>` },
+            { name: "Gravity Shift", cat: "Logic", content: `
+                <div style="display:flex; gap:1rem">
+                    <div class="bento-item" style="animation: float 4s infinite alternate">Antigravidade</div>
+                    <div class="bento-item" style="animation: float 5s infinite alternate-reverse">Give Flow</div>
+                </div>` }
+        ];
+
+        const nav = document.getElementById('lab-nav');
+        const stage = document.getElementById('stage');
+
+        designs.forEach((d, i) => {
+            const btn = document.createElement('button');
+            btn.className = `btn-design ${i === 0 ? 'active' : ''}`;
+            btn.innerHTML = `${(i + 1).toString().padStart(2, '0')}<br>${d.name.toUpperCase()}`;
+            btn.onclick = () => switchView(i, btn);
+            nav.appendChild(btn);
+
+            const view = document.createElement('div');
+            view.className = `concept-view ${i === 0 ? 'active' : ''}`;
+            view.id = `view-${i}`;
+            view.innerHTML = d.content;
+            stage.appendChild(view);
+        });
+
+        function switchView(index, btn) {
+            document.querySelectorAll('.concept-view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.btn-design').forEach(b => b.classList.remove('active'));
+            document.getElementById(`view-${index}`).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+</html>

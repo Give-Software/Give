@@ -125,9 +125,11 @@
     </div>
 
     <div class="orbital-universe reveal">
+      <div class="ou-core">GIVE</div>
       <div class="ou-ring ou-ring-1"></div>
       <div class="ou-ring ou-ring-2"></div>
       <div class="ou-ring ou-ring-3"></div>
+      <div class="ou-ring ou-ring-4"></div>
 
       <div class="ou-planet-wrap pw-1">
         <div class="ou-planet p-1 interactive">
@@ -136,9 +138,11 @@
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
             </svg>
           </div>
-          <h3 class="op-title" data-i18n="sobre.diff1.title">Velocidade Real</h3>
-          <p class="op-desc" data-i18n="sobre.diff1.desc">Entregamos mais rápido que equipes internas, usando
-            arquiteturas modulares e pipelines CI/CD automatizados.</p>
+          <div class="op-content">
+            <h3 class="op-title" data-i18n="sobre.diff1.title">Velocidade Real</h3>
+            <p class="op-desc" data-i18n="sobre.diff1.desc">Entregamos mais rápido que equipes internas, usando
+              arquiteturas modulares e pipelines CI/CD automatizados.</p>
+          </div>
         </div>
       </div>
 
@@ -151,9 +155,11 @@
               <path d="M2 12h20" />
             </svg>
           </div>
-          <h3 class="op-title" data-i18n="sobre.diff2.title">Padrão Global</h3>
-          <p class="op-desc" data-i18n="sobre.diff2.desc">Código construído seguindo os mesmos padrões rigorosos de
-            empresas de tecnologia de ponta.</p>
+          <div class="op-content">
+            <h3 class="op-title" data-i18n="sobre.diff2.title">Padrão Global</h3>
+            <p class="op-desc" data-i18n="sobre.diff2.desc">Código construído seguindo os mesmos padrões rigorosos de
+              empresas de tecnologia de ponta.</p>
+          </div>
         </div>
       </div>
 
@@ -165,11 +171,15 @@
               <polyline points="22 4 12 14.01 9 11.01" />
             </svg>
           </div>
-          <h3 class="op-title" data-i18n="sobre.diff3.title">Zero Fricção</h3>
-          <p class="op-desc" data-i18n="sobre.diff3.desc">Transparência total. Você fala diretamente com os engenheiros
-            seniores que constroem seu produto.</p>
+          <div class="op-content">
+            <h3 class="op-title" data-i18n="sobre.diff3.title">Zero Fricção</h3>
+            <p class="op-desc" data-i18n="sobre.diff3.desc">Transparência total. Você fala diretamente com os engenheiros
+              seniores que constroem seu produto.</p>
+          </div>
         </div>
+      </div>
 
+      <div class="ou-planet-wrap pw-4">
         <div class="ou-planet p-4 interactive">
           <div class="op-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -178,13 +188,48 @@
               <line x1="12" y1="17" x2="12" y2="21" />
             </svg>
           </div>
-          <h3 class="op-title" data-i18n="sobre.diff4.title">Obcessão pelo Design</h3>
-          <p class="op-desc" data-i18n="sobre.diff4.desc">Não apenas escrevemos lógica; esculpimos interfaces UI/UX
-            premium que geram máximo engajamento.</p>
+          <div class="op-content">
+            <h3 class="op-title" data-i18n="sobre.diff4.title">Obcessão pelo Design</h3>
+            <p class="op-desc" data-i18n="sobre.diff4.desc">Não apenas escrevemos lógica; esculpimos interfaces UI/UX
+              premium que geram máximo engajamento.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const planets = document.querySelectorAll('.ou-planet');
+      const universe = document.querySelector('.orbital-universe');
+
+      planets.forEach(planet => {
+        planet.addEventListener('click', (e) => {
+          // Check if already expanded
+          const isExpanded = planet.classList.contains('expanded');
+          
+          // Collapse all others
+          planets.forEach(p => p.classList.remove('expanded'));
+
+          if (!isExpanded) {
+            planet.classList.add('expanded');
+            universe.classList.add('paused');
+          } else {
+            // Unpausing
+            universe.classList.remove('paused');
+          }
+        });
+      });
+
+      // Clicking outside the planets closes them and unpauses
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.ou-planet')) {
+          planets.forEach(p => p.classList.remove('expanded'));
+          if (universe) universe.classList.remove('paused');
+        }
+      });
+    });
+  </script>
 
   <!-- The Team Section -->
   <!--
